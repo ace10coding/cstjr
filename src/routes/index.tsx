@@ -108,6 +108,9 @@ function Index() {
       utterance.onend = () => resolve();
       utterance.onerror = () => resolve();
 
+      // Some browsers leave speech synthesis paused on a fresh page load.
+      // Resume it before every sentence so the automatic intro can begin.
+      window.speechSynthesis.resume();
       window.speechSynthesis.speak(utterance);
     });
   }, []);
@@ -118,6 +121,7 @@ function Index() {
       if (runId !== runIdRef.current) return;
 
       window.speechSynthesis.cancel();
+      window.speechSynthesis.resume();
       setIsSpeaking(true);
 
       // Split into sentences for reliable speech synthesis without browser timeout limits
@@ -213,7 +217,6 @@ function Index() {
   // 3. Automatically play Parte 0.1 (Prefácio à Edição Revista) completely
   // 4. Conclude and pause ready on Parte 1 (Deus)
   const runIntroAndPrefaces = useCallback(async () => {
-    playActionTone();
     const runId = stopAll();
 
     // 1. Welcome & Instructions
@@ -257,12 +260,11 @@ function Index() {
   }, [playAudioTrack, speak, stopAll]);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      void runIntroAndPrefaces();
-    }, 600);
+    // Start immediately after the page mounts so a fresh visit and a reload
+    // both begin with the welcome message and the two prefaces.
+    void runIntroAndPrefaces();
 
     return () => {
-      clearTimeout(timer);
       stopAll();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -444,6 +446,19 @@ function Index() {
             <MethodistLogo className="w-full h-full object-contain drop-shadow-sm transition-transform duration-200 active:scale-98" />
           </div>
         </div>
+
+        <section
+          className="mt-3 max-w-[310px] text-center"
+          aria-labelledby="accessibility-message"
+        >
+          <p id="accessibility-message" className="text-xs font-semibold tracking-wide text-[#D32F2F]">
+            Acessibilidade e inclusão
+          </p>
+          <p className="mt-1 text-xs leading-relaxed text-[#515154] sm:text-sm">
+            Para os nossos irmãos e irmãs em Cristo com deficiência visual: ouça e navegue pelo
+            Catecismo Júnior com áudio e toques simples.
+          </p>
+        </section>
 
         {/* Multi-Touch Floating Pill during active tap counting */}
         {activeTapFeedback && activeTapFeedback > 0 && (
