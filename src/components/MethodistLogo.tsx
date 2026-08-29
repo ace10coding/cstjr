@@ -3,44 +3,48 @@ interface MethodistLogoProps {
   size?: number;
 }
 
-export function MethodistLogo({ className = "h-36 w-auto", size }: MethodistLogoProps) {
+export function MethodistLogo({
+  className = "w-full h-full object-contain",
+  size,
+}: MethodistLogoProps) {
   return (
     <svg
-      viewBox="0 0 500 500"
+      viewBox="0 0 360 480"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       className={className}
+      preserveAspectRatio="xMidYMid meet"
       style={size ? { width: size, height: size } : undefined}
       aria-label="Cruz e Chama — Símbolo oficial da Igreja Metodista Unida"
       role="img"
     >
-      {/* Official UMC Scarlet Red Dual Flame */}
-      {/* Primary Inner Flame Tongue */}
+      {/* Official UMC Scarlet Dual Flame */}
+      {/* Primary Flame Tongue (Left-to-Center sweeping upward) */}
       <path
-        d="M255 20C255 20 240 68 220 114C198 156 172 186 172 228C172 288 214 332 256 384C258 386 260 388 260 482C256 462 250 436 244 408C236 372 218 344 210 318C202 288 210 262 228 238C242 220 250 202 250 202C250 202 224 228 206 258C184 294 176 322 176 348C176 376 188 400 204 420C172 392 164 358 164 324C164 278 190 234 226 184C246 156 255 20 255 20Z"
-        fill="#E5192D"
+        d="M176 18C176 18 162 72 144 122C122 170 94 204 94 250C94 316 142 364 186 422C188 424 190 426 190 464C186 442 180 412 174 382C164 342 144 312 136 282C126 248 136 218 156 192C172 172 182 152 182 152C182 152 154 182 134 216C110 256 102 288 102 316C102 348 116 374 134 396C98 366 90 328 90 290C90 238 120 190 160 134C182 104 176 18 176 18Z"
+        fill="#D32F2F"
       />
       {/* Outer Left Flame Tongue */}
       <path
-        d="M174 158C174 158 172 194 172 230C172 274 192 314 224 348C206 328 196 304 196 276C196 246 204 222 222 188C206 208 194 234 194 262C194 288 204 312 220 330C184 300 174 264 174 228C174 198 182 172 182 172L174 158Z"
-        fill="#E5192D"
+        d="M98 170C98 170 96 210 96 250C96 298 118 342 154 380C134 358 122 332 122 300C122 268 132 242 152 204C134 226 120 256 120 286C120 316 132 342 150 362C110 328 98 288 98 250C98 216 108 186 108 186L98 170Z"
+        fill="#D32F2F"
       />
 
       {/* Official Black Latin Cross */}
       {/* Vertical Shaft */}
-      <path d="M266 48H276V434L266 444V48Z" fill="#1D1D1F" />
+      <rect x="200" y="52" width="28" height="412" fill="#1D1D1F" rx="1.5" />
       {/* Horizontal Crossbeam */}
-      <path d="M206 160H336L328 170H214L206 160Z" fill="#1D1D1F" />
+      <rect x="130" y="152" width="168" height="28" fill="#1D1D1F" rx="1.5" />
 
       {/* Registered Trademark ® */}
-      <g transform="translate(296, 414)">
-        <circle cx="9" cy="9" r="8" stroke="#1D1D1F" strokeWidth="1.6" fill="none" />
+      <g transform="translate(236, 442)">
+        <circle cx="8" cy="8" r="7" stroke="#1D1D1F" strokeWidth="1.4" fill="none" />
         <text
-          x="9"
-          y="12.5"
+          x="8"
+          y="11"
           textAnchor="middle"
-          fontSize="10"
-          fontFamily="'IBM Plex Sans', -apple-system, sans-serif"
+          fontSize="9"
+          fontFamily="system-ui, -apple-system, sans-serif"
           fontWeight="bold"
           fill="#1D1D1F"
         >
