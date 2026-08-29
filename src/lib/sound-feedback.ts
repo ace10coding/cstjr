@@ -5,17 +5,6 @@
 
 let audioCtx: AudioContext | null = null;
 
-export function triggerLoadVibration() {
-  if (typeof navigator !== "undefined" && typeof navigator.vibrate === "function") {
-    try {
-      // Distinct double-pulse haptic pattern to confirm application startup
-      navigator.vibrate([70, 50, 90, 50, 120]);
-    } catch {
-      // continue
-    }
-  }
-}
-
 export function initAudioContext(): AudioContext | null {
   if (typeof window === "undefined") return null;
   try {
@@ -34,20 +23,6 @@ export function initAudioContext(): AudioContext | null {
     // audio context creation failure fallback
   }
   return audioCtx;
-}
-
-export function unlockAudioAutoplay(): void {
-  try {
-    const ctx = initAudioContext();
-    if (ctx && ctx.state === "suspended") {
-      ctx.resume().catch(() => {});
-    }
-    if (typeof window !== "undefined" && "speechSynthesis" in window) {
-      window.speechSynthesis.resume();
-    }
-  } catch {
-    // ignore
-  }
 }
 
 function playToneSound(render: (ctx: AudioContext) => void) {
