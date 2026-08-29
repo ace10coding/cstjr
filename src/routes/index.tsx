@@ -39,6 +39,35 @@ function pickPortugueseVoice(): SpeechSynthesisVoice | null {
   return preferred(ptPt) ?? ptPt[0] ?? preferred(pt) ?? pt[0] ?? null;
 }
 
+function waitForSpeechVoices(runId: number, currentRunId: number) {
+  return new Promise<void>((resolve) => {
+    if (typeof window === "undefined" || !("speechSynthesis" in window)) {
+      resolve();
+      return;
+    }
+
+    const synthesis = window.speechSynthesis;
+    synthesis.getVoices();
+
+    if (synthesis.getVoices().length > 0 || runId !== currentRunId) {
+      resolve();
+      return;
+    }
+
+    let timeout: ReturnType<typeof setTimeout> | null = null;
+    const finish = () => {
+      if (timeout) clearTimeout(timeout);
+      synthesis.removeEventListener("voiceschanged", finish);
+      resolve();
+    };
+
+    // Voice lists are asynchronous in some browsers. Do not hold the intro
+    // indefinitely if that browser never emits voiceschanged.
+    synthesis.addEventListener("voiceschanged", finish, { once: true });
+    timeout = setTimeout(finish, 250);
+  });
+}
+
 function triggerBlobDownload(blob: Blob, filename: string) {
   const url = URL.createObjectURL(blob);
   const a = document.createElement("a");
@@ -59,6 +88,7 @@ function Index() {
   const tapCountRef = useRef(0);
   const tapTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const runIdRef = useRef(0);
+  const automaticStartRef = useRef(false);
 
   const [currentTrack, setCurrentTrack] = useState<LessonTrack>(CATECHISM_LESSONS[0]!);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -116,9 +146,14 @@ function Index() {
   }, []);
 
   const speak = useCallback(
-    async (text: string, runId: number) => {
+    async (text: string, runId: number, waitForVoices = false) => {
       if (typeof window === "undefined" || !("speechSynthesis" in window)) return;
       if (runId !== runIdRef.current) return;
+
+      if (waitForVoices) {
+        await waitForSpeechVoices(runId, runIdRef.current);
+        if (runId !== runIdRef.current) return;
+      }
 
       window.speechSynthesis.cancel();
       window.speechSynthesis.resume();
@@ -218,9 +253,11 @@ function Index() {
   // 4. Conclude and pause ready on Parte 1 (Deus)
   const runIntroAndPrefaces = useCallback(async () => {
     const runId = stopAll();
+    const waitForVoices = automaticStartRef.current;
+    automaticStartRef.current = false;
 
     // 1. Welcome & Instructions
-    await speak(WELCOME_SPEECH_TEXT, runId);
+    await speak(WELCOME_SPEECH_TEXT, runId, waitForVoices);
     if (runId !== runIdRef.current) return;
 
     // 2. Auto play Parte 0 (Prefácio)
@@ -260,15 +297,31 @@ function Index() {
   }, [playAudioTrack, speak, stopAll]);
 
   useEffect(() => {
-    // Start immediately after the page mounts so a fresh visit and a reload
-    // both begin with the welcome message and the two prefaces.
-    void runIntroAndPrefaces();
+    const startIntro = () => {
+      if (
+        typeof window !== "undefined" &&
+        "speechSynthesis" in window &&
+        (window.speechSynthesis.speaking || window.speechSynthesis.pending)
+      ) {
+        return;
+      }
+
+      // Start immediately after mounting, with load/pageshow as a retry for
+      // browsers that initialize their speech engine slightly later.
+      automaticStartRef.current = true;
+      void runIntroAndPrefaces();
+    };
+
+    startIntro();
+    window.addEventListener("load", startIntro);
+    window.addEventListener("pageshow", startIntro);
 
     return () => {
+      window.removeEventListener("load", startIntro);
+      window.removeEventListener("pageshow", startIntro);
       stopAll();
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [runIntroAndPrefaces, stopAll]);
 
   const downloadAllFiles = useCallback(async () => {
     playActionTone();
@@ -447,16 +500,15 @@ function Index() {
           </div>
         </div>
 
-        <section
-          className="mt-3 max-w-[310px] text-center"
-          aria-labelledby="accessibility-message"
-        >
-          <p id="accessibility-message" className="text-xs font-semibold tracking-wide text-[#D32F2F]">
+        <section className="mt-3 max-w-[310px] text-center" aria-labelledby="accessibility-message">
+          <p
+            id="accessibility-message"
+            className="text-xs font-semibold tracking-wide text-[#D32F2F]"
+          >
             Acessibilidade e inclusão
           </p>
           <p className="mt-1 text-xs leading-relaxed text-[#515154] sm:text-sm">
-            Para os nossos irmãos e irmãs em Cristo com deficiência visual: ouça e navegue pelo
-            Catecismo Júnior com áudio e toques simples.
+            Para os nossos irmãos e irmãs em Cristo com deficiência visual
           </p>
         </section>
 
