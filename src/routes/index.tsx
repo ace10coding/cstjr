@@ -361,14 +361,11 @@ function Index() {
         return;
       }
 
-      // Tap 1 to 16
-      const track =
-        CATECHISM_LESSONS.find((t) => t.tapNumber === count) ??
-        CATECHISM_LESSONS.find((t) => t.id === String(count));
-
-      const runId = stopAll();
+      // Each completed tap count maps directly to the lesson with that tap number.
+      const track = CATECHISM_LESSONS.find((lesson) => lesson.tapNumber === count);
 
       if (!track) {
+        const runId = stopAll();
         await speak(
           `Foram registados ${count} toques. Neste momento, existem 12 capítulos. Toque de 1 a 12 vezes para os capítulos, 20 vezes para descarregar ou 21 vezes para ouvir as instruções.`,
           runId,
@@ -439,7 +436,7 @@ function Index() {
         <div className="relative flex items-center justify-center w-full max-w-[260px] sm:max-w-[300px] md:max-w-[340px] aspect-[360/480] max-h-[44dvh]">
           {/* Subtle scarlet pulse halo when audio is active */}
           {isAudioActive && (
-            <div className="absolute -inset-4 sm:-inset-6 rounded-full bg-[#D32F2F]/10 animate-ping pointer-events-none" />
+            <div className="absolute left-1/2 top-1/2 aspect-square w-[60%] -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-[#D32F2F]/30 bg-[#D32F2F]/15 animate-ping pointer-events-none" />
           )}
 
           {/* Cross & Flame Emblem - Infallible vector rendering */}
