@@ -5,18 +5,18 @@ import JSZip from "jszip";
 
 import { MethodistLogo } from "@/components/MethodistLogo";
 import { CATECHISM_LESSONS, PREFACES, WELCOME_SPEECH_TEXT, type LessonTrack } from "@/data/lessons";
-import { playTapTone, playActionTone } from "@/lib/sound-feedback";
+import { playTapTone, playActionTone, initAudioContext } from "@/lib/sound-feedback";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Catecismo Júnior — Igreja Metodista Unida" },
+      { title: "Catecismo Junior" },
       {
         name: "description",
         content:
           "Iniciativa de acessibilidade e inclusão do Catecismo Júnior da Igreja Metodista Unida em áudio em português.",
       },
-      { property: "og:title", content: "Catecismo Júnior — Igreja Metodista Unida" },
+      { property: "og:title", content: "Catecismo Junior" },
       {
         property: "og:description",
         content:
@@ -30,13 +30,27 @@ export const Route = createFileRoute("/")({
 function pickPortugueseVoice(): SpeechSynthesisVoice | null {
   if (typeof window === "undefined" || !("speechSynthesis" in window)) return null;
   const voices = window.speechSynthesis.getVoices();
-  const pt = voices.filter((v) => v.lang?.toLowerCase().startsWith("pt"));
-  const ptPt = pt.filter((v) => v.lang?.toLowerCase().replace("_", "-") === "pt-pt");
+  if (!voices || voices.length === 0) return null;
+
+  const ptPt = voices.filter(
+    (v) =>
+      v.lang?.toLowerCase().replace("_", "-") === "pt-pt" ||
+      v.lang?.toLowerCase().startsWith("pt-pt"),
+  );
+  const ptAny = voices.filter((v) => v.lang?.toLowerCase().startsWith("pt"));
   const preferred = (list: SpeechSynthesisVoice[]) =>
     list.find((v) =>
       /joana|catarina|ines|inês|female|maria|luciana|fernanda|helena|portuguese/i.test(v.name),
     );
-  return preferred(ptPt) ?? ptPt[0] ?? preferred(pt) ?? pt[0] ?? null;
+  return (
+    preferred(ptPt) ??
+    ptPt[0] ??
+    preferred(ptAny) ??
+    ptAny[0] ??
+    voices.find((v) => v.default) ??
+    voices[0] ??
+    null
+  );
 }
 
 function waitForSpeechVoices(runId: number, currentRunId: number) {
@@ -47,9 +61,9 @@ function waitForSpeechVoices(runId: number, currentRunId: number) {
     }
 
     const synthesis = window.speechSynthesis;
-    synthesis.getVoices();
+    const initialVoices = synthesis.getVoices();
 
-    if (synthesis.getVoices().length > 0 || runId !== currentRunId) {
+    if (initialVoices.length > 0 || runId !== currentRunId) {
       resolve();
       return;
     }
@@ -61,10 +75,8 @@ function waitForSpeechVoices(runId: number, currentRunId: number) {
       resolve();
     };
 
-    // Voice lists are asynchronous in some browsers. Do not hold the intro
-    // indefinitely if that browser never emits voiceschanged.
     synthesis.addEventListener("voiceschanged", finish, { once: true });
-    timeout = setTimeout(finish, 250);
+    timeout = setTimeout(finish, 350);
   });
 }
 
@@ -89,6 +101,8 @@ function Index() {
   const tapTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const runIdRef = useRef(0);
   const automaticStartRef = useRef(false);
+  const activeUtteranceRef = useRef<SpeechSynthesisUtterance | null>(null);
+  const introStartedRef = useRef(false);
 
   const [currentTrack, setCurrentTrack] = useState<LessonTrack>(CATECHISM_LESSONS[0]!);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -106,9 +120,14 @@ function Index() {
   const stopAll = useCallback(() => {
     runIdRef.current += 1;
     if (typeof window !== "undefined" && "speechSynthesis" in window) {
-      window.speechSynthesis.cancel();
+      try {
+        window.speechSynthesis.cancel();
+      } catch {
+        // ignore
+      }
     }
     setIsSpeaking(false);
+    activeUtteranceRef.current = null;
     const audio = audioRef.current;
     if (audio) {
       audio.pause();
@@ -127,21 +146,59 @@ function Index() {
         return resolve();
       }
 
+      const synthesis = window.speechSynthesis;
       const utterance = new SpeechSynthesisUtterance(textChunk.trim());
+
+      // Global reference retention to prevent V8 garbage-collecting the utterance mid-speech
+      const globalAny = window as unknown as { __utterances?: SpeechSynthesisUtterance[] };
+      if (!globalAny.__utterances) {
+        globalAny.__utterances = [];
+      }
+      globalAny.__utterances.push(utterance);
+      activeUtteranceRef.current = utterance;
+
       utterance.lang = "pt-PT";
       utterance.rate = 0.95;
       utterance.pitch = 1.0;
 
       const voice = pickPortugueseVoice();
-      if (voice) utterance.voice = voice;
+      if (voice) {
+        utterance.voice = voice;
+        utterance.lang = voice.lang || "pt-PT";
+      }
 
-      utterance.onend = () => resolve();
-      utterance.onerror = () => resolve();
+      let timer: ReturnType<typeof setTimeout> | null = null;
+      let finished = false;
 
-      // Some browsers leave speech synthesis paused on a fresh page load.
-      // Resume it before every sentence so the automatic intro can begin.
-      window.speechSynthesis.resume();
-      window.speechSynthesis.speak(utterance);
+      const finish = () => {
+        if (finished) return;
+        finished = true;
+        if (timer) clearTimeout(timer);
+        if (activeUtteranceRef.current === utterance) {
+          activeUtteranceRef.current = null;
+        }
+        if (globalAny.__utterances) {
+          const idx = globalAny.__utterances.indexOf(utterance);
+          if (idx !== -1) globalAny.__utterances.splice(idx, 1);
+        }
+        resolve();
+      };
+
+      utterance.onend = finish;
+      utterance.onerror = finish;
+
+      // Chrome/Safari safety timeout in case utterance event drops
+      const maxDuration = Math.max(3800, textChunk.length * 115);
+      timer = setTimeout(finish, maxDuration);
+
+      try {
+        if (synthesis.paused) {
+          synthesis.resume();
+        }
+        synthesis.speak(utterance);
+      } catch {
+        finish();
+      }
     });
   }, []);
 
@@ -155,8 +212,22 @@ function Index() {
         if (runId !== runIdRef.current) return;
       }
 
-      window.speechSynthesis.cancel();
-      window.speechSynthesis.resume();
+      try {
+        window.speechSynthesis.cancel();
+      } catch {
+        // continue
+      }
+
+      // Small tick for speech queue cleanup
+      await new Promise((r) => setTimeout(r, 35));
+      if (runId !== runIdRef.current) return;
+
+      try {
+        window.speechSynthesis.resume();
+      } catch {
+        // continue
+      }
+
       setIsSpeaking(true);
 
       // Split into sentences for reliable speech synthesis without browser timeout limits
@@ -252,6 +323,7 @@ function Index() {
   // 3. Automatically play Parte 0.1 (Prefácio à Edição Revista) completely
   // 4. Conclude and pause ready on Parte 1 (Deus)
   const runIntroAndPrefaces = useCallback(async () => {
+    introStartedRef.current = true;
     const runId = stopAll();
     const waitForVoices = automaticStartRef.current;
     automaticStartRef.current = false;
@@ -305,21 +377,66 @@ function Index() {
       return;
     }
 
-    // Start immediately, and also when the visible logo finishes rendering.
+    // Start immediately when the logo loads / renders.
     automaticStartRef.current = true;
     void runIntroAndPrefaces();
   }, [runIntroAndPrefaces]);
 
+  // Chrome periodic resume fix for long utterances
   useEffect(() => {
-    // Mount is the fastest path; load/pageshow cover browsers that initialize
-    // the page or speech engine slightly later.
-    startIntro();
-    window.addEventListener("load", startIntro);
-    window.addEventListener("pageshow", startIntro);
+    if (!isSpeaking) return;
+    const interval = setInterval(() => {
+      if (typeof window !== "undefined" && "speechSynthesis" in window) {
+        window.speechSynthesis.resume();
+      }
+    }, 2000);
+    return () => clearInterval(interval);
+  }, [isSpeaking]);
+
+  useEffect(() => {
+    let unmounted = false;
+
+    const triggerInitialIntro = () => {
+      if (unmounted) return;
+      startIntro();
+    };
+
+    // 1. Trigger immediately on mount
+    triggerInitialIntro();
+
+    // 2. Trigger on window load and pageshow
+    if (typeof window !== "undefined") {
+      window.addEventListener("load", triggerInitialIntro);
+      window.addEventListener("pageshow", triggerInitialIntro);
+
+      // 3. Browser Autoplay Unlock: if browser policy suppressed speech on initial load,
+      // any first tap or interaction immediately starts/resumes speech and audio context.
+      const handleFirstInteraction = () => {
+        initAudioContext();
+        if ("speechSynthesis" in window) {
+          window.speechSynthesis.resume();
+        }
+        if (!introStartedRef.current) {
+          triggerInitialIntro();
+        }
+      };
+
+      window.addEventListener("pointerdown", handleFirstInteraction, {
+        once: true,
+        capture: true,
+      });
+      window.addEventListener("keydown", handleFirstInteraction, {
+        once: true,
+        capture: true,
+      });
+    }
 
     return () => {
-      window.removeEventListener("load", startIntro);
-      window.removeEventListener("pageshow", startIntro);
+      unmounted = true;
+      if (typeof window !== "undefined") {
+        window.removeEventListener("load", triggerInitialIntro);
+        window.removeEventListener("pageshow", triggerInitialIntro);
+      }
       stopAll();
     };
   }, [startIntro, stopAll]);
@@ -352,7 +469,7 @@ function Index() {
         }
       }
 
-      // 2. Add complete transcript and lesson texts for all 16 chapters
+      // 2. Add complete transcript and lesson texts for all 12 chapters + prefaces
       let fullDoc = "CATECISMO JÚNIOR — IGREJA METODISTA UNIDA\n";
       fullDoc += "Edição Revista & Acessibilidade em Áudio\n\n";
       fullDoc += "========================================\n\n";
@@ -401,7 +518,7 @@ function Index() {
     }
   }, [allTracks, audioTracks, speak, stopAll]);
 
-  // Multi-tap resolution logic (1 to 16 = Chapters 1..16, 20 = Download, 21 = Replay Intro)
+  // Multi-tap resolution logic (1 to 12 = Chapters 1..12, 20 = Download, 21 = Replay Intro)
   const resolveTaps = useCallback(
     async (count: number) => {
       setTapCount(0);
@@ -434,38 +551,46 @@ function Index() {
     [downloadAllFiles, playOrNarrateLesson, runIntroAndPrefaces, speak, stopAll],
   );
 
-  const registerTap = useCallback(() => {
-    // Unlock any audio context if locked
-    if (audioRef.current && audioRef.current.paused) {
-      audioRef.current.load();
-    }
-    if (typeof window !== "undefined" && "speechSynthesis" in window) {
-      window.speechSynthesis.resume();
-    }
+  const registerTap = useCallback(
+    (e?: React.MouseEvent | React.TouchEvent) => {
+      if (e) {
+        e.stopPropagation();
+      }
 
-    const next = tapCountRef.current + 1;
-    tapCountRef.current = next;
-    setTapCount(next);
-    setActiveTapFeedback(next);
-    playTapTone(next);
+      // Unlock AudioContext and SpeechSynthesis on user gesture
+      initAudioContext();
+      if (audioRef.current && audioRef.current.paused) {
+        audioRef.current.load();
+      }
+      if (typeof window !== "undefined" && "speechSynthesis" in window) {
+        window.speechSynthesis.resume();
+      }
 
-    if (tapTimer.current) clearTimeout(tapTimer.current);
+      const next = tapCountRef.current + 1;
+      tapCountRef.current = next;
+      setTapCount(next);
+      setActiveTapFeedback(next);
+      playTapTone(next);
 
-    // Start replay directly from the 21st tap so browser autoplay policies
-    // recognize the user's touch as the audio permission gesture.
-    if (next === 21) {
-      tapCountRef.current = 0;
-      setTapCount(0);
-      setActiveTapFeedback(null);
-      void runIntroAndPrefaces();
-      return;
-    }
+      if (tapTimer.current) clearTimeout(tapTimer.current);
 
-    tapTimer.current = setTimeout(() => {
-      tapCountRef.current = 0;
-      void resolveTaps(next);
-    }, 950);
-  }, [resolveTaps, runIntroAndPrefaces]);
+      // Start replay directly from the 21st tap so browser autoplay policies
+      // recognize the user's touch as the audio permission gesture.
+      if (next === 21) {
+        tapCountRef.current = 0;
+        setTapCount(0);
+        setActiveTapFeedback(null);
+        void runIntroAndPrefaces();
+        return;
+      }
+
+      tapTimer.current = setTimeout(() => {
+        tapCountRef.current = 0;
+        void resolveTaps(next);
+      }, 950);
+    },
+    [resolveTaps, runIntroAndPrefaces],
+  );
 
   const isAudioActive = isPlaying || isSpeaking;
 

@@ -77,7 +77,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Catecismo Júnior — Igreja Metodista Unida" },
+      { title: "Catecismo Junior" },
       {
         name: "description",
         content: "Catecismo Júnior em áudio, acessível em português europeu.",

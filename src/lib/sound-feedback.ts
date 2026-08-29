@@ -5,43 +5,79 @@
 
 let audioCtx: AudioContext | null = null;
 
-function getAudioContext(): AudioContext | null {
+export function initAudioContext(): AudioContext | null {
   if (typeof window === "undefined") return null;
-  if (!audioCtx) {
-    const AudioContextClass =
-      window.AudioContext ||
-      (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
-    if (AudioContextClass) {
-      audioCtx = new AudioContextClass();
+  try {
+    if (!audioCtx) {
+      const AudioContextClass =
+        window.AudioContext ||
+        (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
+      if (AudioContextClass) {
+        audioCtx = new AudioContextClass();
+      }
     }
-  }
-  if (audioCtx && audioCtx.state === "suspended") {
-    audioCtx.resume().catch(() => {});
+    if (audioCtx && audioCtx.state === "suspended") {
+      void audioCtx.resume();
+    }
+  } catch {
+    // audio context creation failure fallback
   }
   return audioCtx;
 }
 
+function playToneSound(render: (ctx: AudioContext) => void) {
+  const ctx = initAudioContext();
+  if (!ctx) return;
+
+  if (ctx.state === "suspended") {
+    ctx
+      .resume()
+      .then(() => {
+        try {
+          render(ctx);
+        } catch {
+          // ignore
+        }
+      })
+      .catch(() => {});
+  } else {
+    try {
+      render(ctx);
+    } catch {
+      // ignore
+    }
+  }
+}
+
 export function playTapTone(tapCount: number) {
   try {
-    const ctx = getAudioContext();
-    if (!ctx) return;
+    // Haptic feedback if supported
+    if (typeof navigator !== "undefined" && typeof navigator.vibrate === "function") {
+      try {
+        navigator.vibrate(25);
+      } catch {
+        // continue
+      }
+    }
 
-    const osc = ctx.createOscillator();
-    const gain = ctx.createGain();
+    playToneSound((ctx) => {
+      const now = ctx.currentTime;
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
 
-    // Frequency rises slightly with tap count (440Hz -> 880Hz) to give distinct auditory feedback
-    const baseFreq = 480 + Math.min(tapCount, 20) * 20;
-    osc.type = "sine";
-    osc.frequency.setValueAtTime(baseFreq, ctx.currentTime);
+      const baseFreq = 480 + Math.min(tapCount, 21) * 22;
+      osc.type = "sine";
+      osc.frequency.setValueAtTime(baseFreq, now);
 
-    gain.gain.setValueAtTime(0.12, ctx.currentTime);
-    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.12);
+      gain.gain.setValueAtTime(0.25, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.14);
 
-    osc.connect(gain);
-    gain.connect(ctx.destination);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
 
-    osc.start();
-    osc.stop(ctx.currentTime + 0.13);
+      osc.start(now);
+      osc.stop(now + 0.15);
+    });
   } catch {
     // Ignore audio errors gracefully
   }
@@ -49,25 +85,32 @@ export function playTapTone(tapCount: number) {
 
 export function playActionTone() {
   try {
-    const ctx = getAudioContext();
-    if (!ctx) return;
+    if (typeof navigator !== "undefined" && typeof navigator.vibrate === "function") {
+      try {
+        navigator.vibrate([35, 40, 35]);
+      } catch {
+        // continue
+      }
+    }
 
-    const now = ctx.currentTime;
-    const osc = ctx.createOscillator();
-    const gain = ctx.createGain();
+    playToneSound((ctx) => {
+      const now = ctx.currentTime;
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
 
-    osc.type = "triangle";
-    osc.frequency.setValueAtTime(587.33, now); // D5
-    osc.frequency.setValueAtTime(880, now + 0.08); // A5
+      osc.type = "triangle";
+      osc.frequency.setValueAtTime(587.33, now); // D5
+      osc.frequency.setValueAtTime(880, now + 0.08); // A5
 
-    gain.gain.setValueAtTime(0.15, now);
-    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.22);
+      gain.gain.setValueAtTime(0.3, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.22);
 
-    osc.connect(gain);
-    gain.connect(ctx.destination);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
 
-    osc.start(now);
-    osc.stop(now + 0.23);
+      osc.start(now);
+      osc.stop(now + 0.23);
+    });
   } catch {
     // Ignore audio errors gracefully
   }
