@@ -1,0 +1,6 @@
+{
+  "name": "Catecismo Júnior",
+  "description": "Catecismo Júnior da Igreja Metodista Unida em áudio com acessibilidade e navegação por toques.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
