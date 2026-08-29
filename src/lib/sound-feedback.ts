@@ -25,6 +25,51 @@ export function initAudioContext(): AudioContext | null {
   return audioCtx;
 }
 
+export function unlockAudioEngine(audioElement?: HTMLAudioElement | null) {
+  if (typeof window === "undefined") return;
+  try {
+    const ctx = initAudioContext();
+    if (ctx) {
+      if (ctx.state === "suspended") {
+        void ctx.resume();
+      }
+      // Play a short silent 1ms buffer to fully unlock the audio hardware output (iOS Safari / Chrome)
+      const buffer = ctx.createBuffer(1, 1, 22050);
+      const source = ctx.createBufferSource();
+      source.buffer = buffer;
+      source.connect(ctx.destination);
+      source.start(0);
+    }
+  } catch {
+    // ignore
+  }
+
+  try {
+    if ("speechSynthesis" in window) {
+      window.speechSynthesis.resume();
+    }
+  } catch {
+    // ignore
+  }
+
+  if (audioElement) {
+    try {
+      audioElement.muted = true;
+      const playPromise = audioElement.play();
+      if (playPromise && typeof playPromise.then === "function") {
+        playPromise
+          .then(() => {
+            audioElement.pause();
+            audioElement.muted = false;
+          })
+          .catch(() => {});
+      }
+    } catch {
+      // ignore
+    }
+  }
+}
+
 function playToneSound(render: (ctx: AudioContext) => void) {
   const ctx = initAudioContext();
   if (!ctx) return;

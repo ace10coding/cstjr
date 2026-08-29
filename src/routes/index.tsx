@@ -5,7 +5,12 @@ import JSZip from "jszip";
 
 import { MethodistLogo } from "@/components/MethodistLogo";
 import { CATECHISM_LESSONS, PREFACES, WELCOME_SPEECH_TEXT, type LessonTrack } from "@/data/lessons";
-import { playTapTone, playActionTone, initAudioContext } from "@/lib/sound-feedback";
+import {
+  playTapTone,
+  playActionTone,
+  initAudioContext,
+  unlockAudioEngine,
+} from "@/lib/sound-feedback";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -103,13 +108,14 @@ function Index() {
   const automaticStartRef = useRef(false);
   const activeUtteranceRef = useRef<SpeechSynthesisUtterance | null>(null);
   const introStartedRef = useRef(false);
+  const firstTapConsumedRef = useRef(false);
 
   const [currentTrack, setCurrentTrack] = useState<LessonTrack>(CATECHISM_LESSONS[0]!);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [downloadSuccess, setDownloadSuccess] = useState(false);
   const [isDownloading, setIsDownloading] = useState(false);
-  const [activeTapFeedback, setActiveTapFeedback] = useState<number | null>(null);
+  const [activeTapFeedback, setActiveTapFeedback] = useState<number | string | null>(null);
 
   const allTracks = useMemo(() => [...PREFACES, ...CATECHISM_LESSONS], []);
   const audioTracks = useMemo(
@@ -409,13 +415,9 @@ function Index() {
       window.addEventListener("load", triggerInitialIntro);
       window.addEventListener("pageshow", triggerInitialIntro);
 
-      // 3. Browser Autoplay Unlock: if browser policy suppressed speech on initial load,
-      // any first tap or interaction immediately starts/resumes speech and audio context.
+      // 3. Browser Autoplay Bypass: unlock audio engine on first pointer down / touch / key
       const handleFirstInteraction = () => {
-        initAudioContext();
-        if ("speechSynthesis" in window) {
-          window.speechSynthesis.resume();
-        }
+        unlockAudioEngine(audioRef.current);
         if (!introStartedRef.current) {
           triggerInitialIntro();
         }
@@ -557,15 +559,30 @@ function Index() {
         e.stopPropagation();
       }
 
-      // Unlock AudioContext and SpeechSynthesis on user gesture
-      initAudioContext();
-      if (audioRef.current && audioRef.current.paused) {
-        audioRef.current.load();
-      }
-      if (typeof window !== "undefined" && "speechSynthesis" in window) {
-        window.speechSynthesis.resume();
+      // 1. Bypass browser audio blocks by actively unlocking hardware context
+      unlockAudioEngine(audioRef.current);
+
+      // 2. Default Stored First Tap:
+      // The very first touch on page load/reload is always the Intro.
+      // This default token is used only once.
+      if (!firstTapConsumedRef.current) {
+        firstTapConsumedRef.current = true;
+        tapCountRef.current = 0;
+        setTapCount(0);
+        if (tapTimer.current) clearTimeout(tapTimer.current);
+
+        playTapTone(1);
+        playActionTone();
+        setActiveTapFeedback("intro");
+        setTimeout(() => {
+          setActiveTapFeedback((prev) => (prev === "intro" ? null : prev));
+        }, 2200);
+
+        void runIntroAndPrefaces();
+        return;
       }
 
+      // 3. Subsequent taps follow the chapter logic (1 = Parte 1, 2 = Parte 2, etc.)
       const next = tapCountRef.current + 1;
       tapCountRef.current = next;
       setTapCount(next);
@@ -642,10 +659,12 @@ function Index() {
         </section>
 
         {/* Multi-Touch Floating Pill during active tap counting */}
-        {activeTapFeedback && activeTapFeedback > 0 && (
+        {activeTapFeedback !== null && (
           <div className="mt-4 sm:mt-6 inline-flex items-center gap-2 rounded-full bg-[#D32F2F] px-5 py-2 text-sm font-semibold text-white shadow-lg animate-scale-in shrink-0">
             <span>
-              {activeTapFeedback} {activeTapFeedback === 1 ? "Toque" : "Toques"}
+              {activeTapFeedback === "intro"
+                ? "Introdução"
+                : `${activeTapFeedback} ${activeTapFeedback === 1 ? "Toque" : "Toques"}`}
             </span>
           </div>
         )}
