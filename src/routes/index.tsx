@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { Download, CheckCircle2, RotateCcw } from "lucide-react";
+import { Download, CheckCircle2 } from "lucide-react";
 import JSZip from "jszip";
 
 import { MethodistLogo } from "@/components/MethodistLogo";
@@ -56,6 +56,7 @@ function triggerBlobDownload(blob: Blob, filename: string) {
 function Index() {
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [tapCount, setTapCount] = useState(0);
+  const tapCountRef = useRef(0);
   const tapTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const runIdRef = useRef(0);
 
@@ -205,10 +206,6 @@ function Index() {
     },
     [playAudioTrack, speak, stopAll],
   );
-
-  const replayCurrentAudio = useCallback(() => {
-    void playOrNarrateLesson(currentTrack);
-  }, [currentTrack, playOrNarrateLesson]);
 
   // Introductory sequence:
   // 1. Welcome speech with accessibility statement and complete Portuguese instructions
@@ -389,20 +386,33 @@ function Index() {
     if (audioRef.current && audioRef.current.paused) {
       audioRef.current.load();
     }
+    if (typeof window !== "undefined" && "speechSynthesis" in window) {
+      window.speechSynthesis.resume();
+    }
 
-    setTapCount((previous) => {
-      const next = previous + 1;
-      setActiveTapFeedback(next);
-      playTapTone(next);
+    const next = tapCountRef.current + 1;
+    tapCountRef.current = next;
+    setTapCount(next);
+    setActiveTapFeedback(next);
+    playTapTone(next);
 
-      if (tapTimer.current) clearTimeout(tapTimer.current);
-      tapTimer.current = setTimeout(() => {
-        void resolveTaps(next);
-      }, 950);
+    if (tapTimer.current) clearTimeout(tapTimer.current);
 
-      return next;
-    });
-  }, [resolveTaps]);
+    // Start replay directly from the 21st tap so browser autoplay policies
+    // recognize the user's touch as the audio permission gesture.
+    if (next === 21) {
+      tapCountRef.current = 0;
+      setTapCount(0);
+      setActiveTapFeedback(null);
+      void runIntroAndPrefaces();
+      return;
+    }
+
+    tapTimer.current = setTimeout(() => {
+      tapCountRef.current = 0;
+      void resolveTaps(next);
+    }, 950);
+  }, [resolveTaps, runIntroAndPrefaces]);
 
   const isAudioActive = isPlaying || isSpeaking;
 
@@ -450,19 +460,6 @@ function Index() {
 
       {/* Bottom: Replay and download actions */}
       <footer className="w-full max-w-xs sm:max-w-sm shrink-0 pt-2 pb-2 sm:pb-4">
-        <button
-          type="button"
-          id="btn-replay-audio"
-          onClick={(e) => {
-            e.stopPropagation();
-            replayCurrentAudio();
-          }}
-          className="mb-3 flex min-h-[48px] w-full items-center justify-center gap-3 rounded-2xl apple-btn-secondary px-6 text-sm sm:text-base font-semibold tracking-tight shadow-sm cursor-pointer"
-          aria-label={`Ouvir novamente ${currentTrack.label}: ${currentTrack.title}`}
-        >
-          <RotateCcw className="h-5 w-5 shrink-0" />
-          <span>Ouvir novamente</span>
-        </button>
         <button
           type="button"
           id="btn-download-files"
