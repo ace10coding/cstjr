@@ -296,22 +296,23 @@ function Index() {
     );
   }, [playAudioTrack, speak, stopAll]);
 
+  const startIntro = useCallback(() => {
+    if (
+      typeof window !== "undefined" &&
+      "speechSynthesis" in window &&
+      (window.speechSynthesis.speaking || window.speechSynthesis.pending)
+    ) {
+      return;
+    }
+
+    // Start immediately, and also when the visible logo finishes rendering.
+    automaticStartRef.current = true;
+    void runIntroAndPrefaces();
+  }, [runIntroAndPrefaces]);
+
   useEffect(() => {
-    const startIntro = () => {
-      if (
-        typeof window !== "undefined" &&
-        "speechSynthesis" in window &&
-        (window.speechSynthesis.speaking || window.speechSynthesis.pending)
-      ) {
-        return;
-      }
-
-      // Start immediately after mounting, with load/pageshow as a retry for
-      // browsers that initialize their speech engine slightly later.
-      automaticStartRef.current = true;
-      void runIntroAndPrefaces();
-    };
-
+    // Mount is the fastest path; load/pageshow cover browsers that initialize
+    // the page or speech engine slightly later.
     startIntro();
     window.addEventListener("load", startIntro);
     window.addEventListener("pageshow", startIntro);
@@ -321,7 +322,7 @@ function Index() {
       window.removeEventListener("pageshow", startIntro);
       stopAll();
     };
-  }, [runIntroAndPrefaces, stopAll]);
+  }, [startIntro, stopAll]);
 
   const downloadAllFiles = useCallback(async () => {
     playActionTone();
@@ -496,7 +497,10 @@ function Index() {
 
           {/* Cross & Flame Emblem - Infallible vector rendering */}
           <div className="relative w-full h-full flex items-center justify-center pointer-events-none select-none">
-            <MethodistLogo className="w-full h-full object-contain drop-shadow-sm transition-transform duration-200 active:scale-98" />
+            <MethodistLogo
+              onLoad={startIntro}
+              className="w-full h-full object-contain drop-shadow-sm transition-transform duration-200 active:scale-98"
+            />
           </div>
         </div>
 

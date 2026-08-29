@@ -1,11 +1,15 @@
+import type { SVGProps } from "react";
+
 interface MethodistLogoProps {
   className?: string;
   size?: number;
+  onLoad?: SVGProps<SVGSVGElement>["onLoad"];
 }
 
 export function MethodistLogo({
   className = "w-full h-full object-contain",
   size,
+  onLoad,
 }: MethodistLogoProps) {
   return (
     <svg
@@ -15,6 +19,7 @@ export function MethodistLogo({
       className={className}
       preserveAspectRatio="xMidYMid meet"
       style={size ? { width: size, height: size } : undefined}
+      onLoad={onLoad}
       aria-label="Cruz e Chama — Símbolo oficial da Igreja Metodista Unida"
       role="img"
     >
