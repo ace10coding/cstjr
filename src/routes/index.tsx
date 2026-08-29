@@ -5,7 +5,13 @@ import JSZip from "jszip";
 
 import { MethodistLogo } from "@/components/MethodistLogo";
 import { CATECHISM_LESSONS, PREFACES, WELCOME_SPEECH_TEXT, type LessonTrack } from "@/data/lessons";
-import { playTapTone, playActionTone, initAudioContext } from "@/lib/sound-feedback";
+import {
+  playTapTone,
+  playActionTone,
+  initAudioContext,
+  triggerLoadVibration,
+  unlockAudioAutoplay,
+} from "@/lib/sound-feedback";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -398,30 +404,42 @@ function Index() {
 
     const triggerInitialIntro = () => {
       if (unmounted) return;
+      triggerLoadVibration();
+      unlockAudioAutoplay();
       startIntro();
     };
 
-    // 1. Trigger immediately on mount
+    // 1. Trigger immediately on mount with vibration and autoplay unlock
     triggerInitialIntro();
 
     // 2. Trigger on window load and pageshow
     if (typeof window !== "undefined") {
       window.addEventListener("load", triggerInitialIntro);
       window.addEventListener("pageshow", triggerInitialIntro);
+      window.addEventListener("DOMContentLoaded", triggerInitialIntro);
 
-      // 3. Browser Autoplay Unlock: if browser policy suppressed speech on initial load,
-      // any first tap or interaction immediately starts/resumes speech and audio context.
+      // 3. Browser Autoplay Unlock: guarantees audio context and speech engine resume
+      // on the very first user interaction or screen touch anywhere
       const handleFirstInteraction = () => {
-        initAudioContext();
-        if ("speechSynthesis" in window) {
+        triggerLoadVibration();
+        unlockAudioAutoplay();
+        if (typeof window !== "undefined" && "speechSynthesis" in window) {
           window.speechSynthesis.resume();
         }
-        if (!introStartedRef.current) {
+        if (!introStartedRef.current || (!isSpeaking && !isPlaying)) {
           triggerInitialIntro();
         }
       };
 
       window.addEventListener("pointerdown", handleFirstInteraction, {
+        once: true,
+        capture: true,
+      });
+      window.addEventListener("touchstart", handleFirstInteraction, {
+        once: true,
+        capture: true,
+      });
+      window.addEventListener("mousedown", handleFirstInteraction, {
         once: true,
         capture: true,
       });
@@ -436,10 +454,11 @@ function Index() {
       if (typeof window !== "undefined") {
         window.removeEventListener("load", triggerInitialIntro);
         window.removeEventListener("pageshow", triggerInitialIntro);
+        window.removeEventListener("DOMContentLoaded", triggerInitialIntro);
       }
       stopAll();
     };
-  }, [startIntro, stopAll]);
+  }, [isSpeaking, isPlaying, startIntro, stopAll]);
 
   const downloadAllFiles = useCallback(async () => {
     playActionTone();
