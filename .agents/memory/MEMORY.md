@@ -1,0 +1,1 @@
+- [Imported audio assets](imported-audio-assets.md) — Lovable asset metadata may reference unavailable paths; use local recordings or the pt-PT speech fallback.

@@ -1,7 +1,3 @@
-import prefacio from "@/assets/Catecismo_Junior_Parte_0_-_Prefacio.mp3.asset.json";
-import prefacioRevista from "@/assets/Catecismo_Junior_Parte_0.1_-_Prefacio_A_Edicao_Revista.mp3.asset.json";
-import capitulo1 from "@/assets/Catecismo_Junior_Parte_1_-_DEUS.mp3.asset.json";
-
 export interface LessonTrack {
   id: string;
   tapNumber: number;
@@ -16,7 +12,7 @@ export interface LessonTrack {
 }
 
 export const WELCOME_SPEECH_TEXT =
-  'Bem-vindo ao Catecismo Júnior online da Igreja Metodista Unida. Esta é uma iniciativa de acessibilidade e inclusão. Por favor, não toque em nada de momento para ouvir o Prefácio e o Prefácio à Edição Revista. Pode tocar no ecrã para mudar de capítulo de acordo com o número de toques e também pode tocar no ecrã 20 vezes para descarregar os ficheiros. Quando descarregar os ficheiros, pode usar a Siri ou o Google Assistant e dizer: "Hey Siri, abre o Catecismo Júnior parte 1 a 16" para os capítulos. Se gostaria de ouvir novamente, toque no ecrã 21 vezes. Se descarregar os ficheiros, eles estão rotulados como Catecismo Júnior parte 0 para o Prefácio e Catecismo Júnior parte 0.1 para o Prefácio à Edição Revista. Em nome do Pai, do Filho e do Espírito Santo. Ámen.';
+  'Bem-vindo ao Catecismo Júnior online da Igreja Metodista Unida. Esta é uma iniciativa de acessibilidade e inclusão. Por favor, não toque em nada de momento para ouvir o Prefácio e o Prefácio à Edição Revista. Pode tocar no ecrã para mudar de capítulo de acordo com o número de toques e também pode tocar no ecrã 20 vezes para descarregar os ficheiros. Quando descarregar os ficheiros, pode usar a Siri ou o Google Assistant e dizer: "Olá Siri, abre o Catecismo Júnior" ou "Olá Google, abre o Catecismo Júnior". Neste momento, existem 12 capítulos. Se gostaria de ouvir novamente, toque no ecrã 21 vezes. Se descarregar os ficheiros, eles estão rotulados como Catecismo Júnior parte 0 para o Prefácio e Catecismo Júnior parte 0.1 para o Prefácio à Edição Revista. Em nome do Pai, do Filho e do Espírito Santo. Ámen.';
 
 export const PREFACES: LessonTrack[] = [
   {
@@ -28,7 +24,7 @@ export const PREFACES: LessonTrack[] = [
     summary: "Introdução doutrinária do Catecismo da Igreja Metodista Unida.",
     fullText:
       "Prefácio. Catecismo é o ensino das doutrinas cristãs ou o livro que reúne, formula e explica o conjunto dos elementos essenciais da fé cristã. A palavra catecismo é de origem grega e podemos encontrá-la no texto do Novo Testamento, no Evangelho de Lucas 1:4, na Carta aos Romanos 2:18 e em 1 Coríntios 14:19, referida ao ensino de doutrinas. A preocupação com o ensino vem desde os primeiros tempos da igreja. A partir do século XVI surgem catecismos da Igreja Católica Romana, da Igreja Ortodoxa e das Igrejas Protestantes. Pretende-se com este documento apresentar uma declaração tão clara quanto possível da fé cristã. Espera-se que este seja um instrumento de base para a preparação de novos membros da igreja, podendo ser utilizado por jovens, adultos ou grupos de estudo para um mais profundo e renovado conhecimento sobre a fé.",
-    url: prefacio.url,
+    url: null,
     filename: "Catecismo_Junior_Parte_0_-_Prefacio.mp3",
   },
   {
@@ -40,7 +36,7 @@ export const PREFACES: LessonTrack[] = [
     summary: "Revisão e atualização da linguagem e inclusão metodista.",
     fullText:
       "Prefácio à Edição Revista. Dando seguimento ao trabalho iniciado pela Subcomissão Distrital de Educação de Maputo Leste, a Direção de Educação da Igreja Metodista Unida procedeu à revisão do Catecismo do Povo Chamado Metodista. A revisão consistiu, para além da mudança do título da obra, na adaptação dos conteúdos à forma de lições, com sumários e questionários sobre os conteúdos ministrados. Desta forma, pretende-se facilitar o trabalho do catequista na facilitação e explanação dos vários temas, assim como na avaliação do conhecimento dos catecúmenos. Em alguns casos foi alterada a sequência dos capítulos, de forma a tornar o seu ensino mais progressivo. Foram também feitas alterações no conteúdo referente à Igreja Metodista Unida, de forma a torná-lo atual, em consonância com a evolução histórica ocorrida desde a publicação da primeira edição. Que o Dono da obra abençoe este instrumento que dedicamos para a grande missão da Igreja Metodista Unida de fazer discípulos de Jesus Cristo para a transformação do mundo.",
-    url: prefacioRevista.url,
+    url: null,
     filename: "Catecismo_Junior_Parte_0.1_-_Prefacio_A_Edicao_Revista.mp3",
   },
 ];
@@ -56,7 +52,7 @@ export const CATECHISM_LESSONS: LessonTrack[] = [
     fullText:
       "Deus. No fim desta lição o catecúmeno deverá saber quem é Deus, quais são as Suas características e qual é a relação existente entre Deus e o homem. Deus é o criador do universo e Pai de todos nós. Deus nos criou para povoar o universo, por isso somos filhos de Deus, e como todos nós somos filhos do mesmo Pai, nós todos somos irmãos. Deus é perfeito e enche completamente o universo. Nós estamos em Deus e Ele em nós. Deus não se mostra, mas se revela pelas Suas obras. Podemos adorá-Lo em qualquer lugar: nas cidades ou nos desertos, nos mares ou nas florestas, nos palácios ou nas cabanas. Sendo Deus um Espírito, é pelo pensamento que devemos adorá-Lo. Deus governa o universo por meio de Suas sábias e imutáveis leis. Deus é eterno, não teve princípio e não terá fim. Deus é único, há um só Deus. Deus é bom, ama todas as Suas criaturas com o mesmo amor. Deus é justo, todos somos iguais diante de Deus.",
     references: "Salmo 23, Salmo 121, Mateus 6:25-34",
-    url: capitulo1.url,
+    url: null,
     filename: "Catecismo_Junior_Parte_1_-_DEUS.mp3",
   },
   {

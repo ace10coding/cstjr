@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { Download, CheckCircle2 } from "lucide-react";
+import { Download, CheckCircle2, RotateCcw } from "lucide-react";
 import JSZip from "jszip";
 
 import { MethodistLogo } from "@/components/MethodistLogo";
@@ -206,6 +206,10 @@ function Index() {
     [playAudioTrack, speak, stopAll],
   );
 
+  const replayCurrentAudio = useCallback(() => {
+    void playOrNarrateLesson(currentTrack);
+  }, [currentTrack, playOrNarrateLesson]);
+
   // Introductory sequence:
   // 1. Welcome speech with accessibility statement and complete Portuguese instructions
   // 2. Automatically play Parte 0 (Prefácio) completely
@@ -369,7 +373,7 @@ function Index() {
 
       if (!track) {
         await speak(
-          `Foram registados ${count} toques. Toque de 1 a 16 vezes para os capítulos, 20 vezes para descarregar ou 21 vezes para ouvir as instruções.`,
+          `Foram registados ${count} toques. Neste momento, existem 12 capítulos. Toque de 1 a 12 vezes para os capítulos, 20 vezes para descarregar ou 21 vezes para ouvir as instruções.`,
           runId,
         );
         return;
@@ -407,7 +411,7 @@ function Index() {
       className="relative flex h-[100dvh] min-h-[100dvh] max-h-[100dvh] w-full flex-col items-center justify-between bg-white text-[#1d1d1f] font-sans antialiased select-none cursor-pointer overflow-hidden p-4 sm:p-6 md:p-8 safe-pb"
       onClick={registerTap}
       role="application"
-      aria-label="Catecismo Júnior da Igreja Metodista Unida. Toque em qualquer ponto do ecrã para ouvir as lições de 1 a 16."
+      aria-label="Catecismo Júnior da Igreja Metodista Unida. Toque em qualquer ponto do ecrã para ouvir os 12 capítulos."
     >
       <audio ref={audioRef} preload="auto" className="hidden" />
 
@@ -444,8 +448,21 @@ function Index() {
         )}
       </main>
 
-      {/* Bottom: Only the Download Action Button on Screen */}
+      {/* Bottom: Replay and download actions */}
       <footer className="w-full max-w-xs sm:max-w-sm shrink-0 pt-2 pb-2 sm:pb-4">
+        <button
+          type="button"
+          id="btn-replay-audio"
+          onClick={(e) => {
+            e.stopPropagation();
+            replayCurrentAudio();
+          }}
+          className="mb-3 flex min-h-[48px] w-full items-center justify-center gap-3 rounded-2xl apple-btn-secondary px-6 text-sm sm:text-base font-semibold tracking-tight shadow-sm cursor-pointer"
+          aria-label={`Ouvir novamente ${currentTrack.label}: ${currentTrack.title}`}
+        >
+          <RotateCcw className="h-5 w-5 shrink-0" />
+          <span>Ouvir novamente</span>
+        </button>
         <button
           type="button"
           id="btn-download-files"

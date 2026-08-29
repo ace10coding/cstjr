@@ -10,7 +10,7 @@ Create a fully responsive web and mobile application named "Catecismo Júnior - 
 
    - Tapping the screen at any time selects chapters based on tap count (e.g., 2 taps selects Chapter 2). Tapping 20 times triggers an automatic application package download.
 
-2. **Voice Assistant Integration Guide:** - Instruct the user that once downloaded, they can use Siri or Google Assistant in European Portuguese by saying commands like: *"Hey Siri, abre o Catecismo Júnior prefácio"* or *"Hey Siri, abre o Catecismo Júnior capítulo 1 até 17"*.
+2. **Voice Assistant Integration Guide:** - Instruct the user that once downloaded, they can use Siri or Google Assistant in European Portuguese by saying commands like: *"Olá Siri, abre o Catecismo Júnior prefácio"* or *"Olá Google, abre o Catecismo Júnior prefácio"*. Neste momento, existem 12 capítulos.
 
 3. **Audio Download Section:** - A dedicated, elegant glassmorphic button for sighted users to download offline audio files.
 
@@ -18,7 +18,7 @@ Create a fully responsive web and mobile application named "Catecismo Júnior - 
 
 ### Welcome, Prefaces & Voice Command Audio Script (Audio & Text Display):
 
-"Por favor, não toque em nada de momento e ouça com atenção o Prefácio e o Prefácio à Edição Revista, etiquetados como ficheiro 0 e ficheiro 0.1. Bem-vindo ao Catecismo Júnior da Igreja Metodista Unida. Depois de descarregar a aplicação, pode utilizar a Siri ou o Google Assistant dizendo simplesmente: 'Hey Siri, abre o Catecismo Júnior prefácio'."
+"Por favor, não toque em nada de momento e ouça com atenção o Prefácio e o Prefácio à Edição Revista, etiquetados como ficheiro 0 e ficheiro 0.1. Bem-vindo ao Catecismo Júnior da Igreja Metodista Unida. Depois de descarregar a aplicação, pode utilizar a Siri ou o Google Assistant dizendo simplesmente: 'Olá Siri, abre o Catecismo Júnior prefácio' ou 'Olá Google, abre o Catecismo Júnior prefácio'. Neste momento, existem 12 capítulos."
 
 ### UI/UX Specifications:
 
