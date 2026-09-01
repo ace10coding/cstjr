@@ -456,7 +456,7 @@ function Index() {
       const zip = new JSZip();
       const folder = zip.folder("Catecismo_Junior_Igreja_Metodista_Unida_Audios");
 
-      // Generate and attach genuine audio files (.mp3 / .wav) for all 18 tracks (prefaces + 16 lessons)
+      // Generate and attach genuine audio files (.wav) for all 22 tracks (prefaces + 20 lessons)
       for (const track of allTracks) {
         if (track.url) {
           try {
@@ -493,18 +493,18 @@ function Index() {
     }
   }, [allTracks, speak, stopAll]);
 
-  // Multi-tap resolution logic (1 to 16 = Chapters 1..16, 20 = Download, 21 = Replay Intro)
+  // Multi-tap resolution logic (1 to 20 = Chapters 1..20, 21 = Download, 22 = Replay Intro)
   const resolveTaps = useCallback(
     async (count: number) => {
       setTapCount(0);
       setActiveTapFeedback(null);
 
-      if (count === 21) {
+      if (count === 22) {
         await runIntroAndPrefaces();
         return;
       }
 
-      if (count === 20) {
+      if (count === 21) {
         void downloadAllFiles();
         return;
       }
@@ -515,7 +515,7 @@ function Index() {
       if (!track) {
         const runId = stopAll();
         await speak(
-          `Foram registados ${count} toques. O catecismo dispõe de 16 lições. Toque de 1 a 16 vezes para escolher a lição, 20 vezes para descarregar ou 21 vezes para ouvir as instruções.`,
+          `Foram registados ${count} toques. O catecismo dispõe de 20 lições. Toque de 1 a 20 vezes para escolher a lição, 21 vezes para descarregar ou 22 vezes para ouvir as instruções.`,
           runId,
         );
         return;
@@ -564,9 +564,9 @@ function Index() {
 
       if (tapTimer.current) clearTimeout(tapTimer.current);
 
-      // Start replay directly from the 21st tap so browser autoplay policies
+      // Start replay directly from the 22nd tap so browser autoplay policies
       // recognize the user's touch as the audio permission gesture.
-      if (next === 21) {
+      if (next === 22) {
         tapCountRef.current = 0;
         setTapCount(0);
         setActiveTapFeedback(null);
@@ -589,7 +589,7 @@ function Index() {
       className="relative flex h-[100dvh] min-h-[100dvh] max-h-[100dvh] w-full flex-col items-center justify-between bg-white text-[#1d1d1f] font-sans antialiased select-none cursor-pointer overflow-hidden p-4 sm:p-6 md:p-8 safe-pb"
       onClick={registerTap}
       role="application"
-      aria-label="Catecismo Júnior da Igreja Metodista Unida. Toque em qualquer ponto do ecrã para ouvir as 16 lições."
+      aria-label="Catecismo Júnior da Igreja Metodista Unida. Toque em qualquer ponto do ecrã para ouvir as 20 lições."
     >
       <audio ref={audioRef} preload="auto" className="hidden" />
 

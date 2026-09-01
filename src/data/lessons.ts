@@ -12,7 +12,7 @@ export interface LessonTrack {
 }
 
 export const WELCOME_SPEECH_TEXT =
-  'Bem-vindo ao Catecismo Júnior online da Igreja Metodista Unida. Esta é uma iniciativa de acessibilidade e inclusão, especialmente preparada para os nossos irmãos e irmãs em Cristo com deficiência visual. Por favor, não toque em nada de momento para ouvir o Prefácio e o Prefácio à Edição Revista. Pode tocar no ecrã para mudar de lição de acordo com o número de toques e também pode tocar no ecrã 20 vezes para descarregar todos os ficheiros de áudio. Quando descarregar os ficheiros, pode usar a Siri ou o Google Assistant no seu telemóvel e dizer: "Olá Siri, abre o Catecismo Júnior" ou "Olá Google, abre o Catecismo Júnior". O catecismo é composto pela parte 0 do Prefácio, parte 0.1 do Prefácio à Edição Revista, e pelas lições da parte 1 até à parte 16. Se quiser ouvir novamente estas instruções, toque no ecrã 21 vezes. Em nome do Pai, do Filho e do Espírito Santo. Ámen.';
+  'Bem-vindo ao Catecismo Júnior online da Igreja Metodista Unida. Esta é uma iniciativa de acessibilidade e inclusão, especialmente preparada para os nossos irmãos e irmãs em Cristo com deficiência visual. Por favor, não toque em nada de momento para ouvir o Prefácio e o Prefácio à Edição Revista. Pode tocar no ecrã para mudar de lição de acordo com o número de toques e também pode tocar no ecrã 21 vezes para descarregar todos os ficheiros de áudio. Quando descarregar os ficheiros, pode usar a Siri ou o Google Assistant no seu telemóvel e dizer: "Olá Siri, abre o Catecismo Júnior" ou "Olá Google, abre o Catecismo Júnior". O catecismo é composto pela parte 0 do Prefácio, parte 0.1 do Prefácio à Edição Revista, e pelas lições da parte 1 até à parte 20. Se quiser ouvir novamente estas instruções, toque no ecrã 22 vezes. Em nome do Pai, do Filho e do Espírito Santo. Ámen.';
 
 export const PREFACES: LessonTrack[] = [
   {
@@ -230,25 +230,77 @@ export const CATECHISM_LESSONS: LessonTrack[] = [
     tapNumber: 15,
     partNumber: "15",
     label: "Parte 15",
-    title: "A Igreja e a Sua Missão",
-    summary: "O Corpo de Cristo na Terra e o testemunho e serviço wesleyano.",
-    fullText:
-      "A Igreja e a Sua Missão. A Igreja é o povo chamado por Deus e unido pelo Espírito Santo para continuar a obra redentora de Jesus Cristo. Na tradição metodista de John Wesley, a missão da Igreja une piedade pessoal e santidade social: pregar o Evangelho, cuidar dos desfavorecidos, acolher a todos com amor incondicional e transformar o mundo pela justiça e paz de Deus.",
-    references: "1 Coríntios 12:12-27, Efésios 4:11-16",
-    url: null,
-    filename: "Catecismo_Junior_Parte_15_-_A_Igreja_E_A_Sua_Missao.mp3",
-  },
-  {
-    id: "16",
-    tapNumber: 16,
-    partNumber: "16",
-    label: "Parte 16",
     title: "A Graça de Deus",
     summary: "Graça Preveniente, Justificadora e Santificadora.",
     fullText:
       "A Graça de Deus. Na teologia metodista, a graça é o amor imerecido e gratuito de Deus. A Graça Preveniente cerca-nos antes mesmo de O conhecermos, despertando a consciência. A Graça Justificadora perdoa os nossos pecados quando cremos em Cristo. A Graça Santificadora capacita-nos diariamente a crescer no amor perfeito a Deus e ao próximo ao longo de toda a vida.",
     references: "Efésios 2:8-9, Romanos 5:1-2, 1 Tessalonicenses 5:23",
     url: null,
-    filename: "Catecismo_Junior_Parte_16_-_A_Graca_De_Deus.mp3",
+    filename: "Catecismo_Junior_Parte_15_-_A_Graca_De_Deus.mp3",
+  },
+  {
+    id: "16",
+    tapNumber: 16,
+    partNumber: "16",
+    label: "Parte 16",
+    title: "A Igreja",
+    summary: "O que é a Igreja, o sacerdócio universal e o calendário litúrgico.",
+    fullText:
+      "A Igreja. Esta lição visa dar ao catecúmeno informação sobre o que é a igreja, qual é o seu trabalho, e quem executa o trabalho da igreja. Dá também uma breve noção do calendário litúrgico. Como todos os membros da igreja partilham do privilégio e da responsabilidade do acesso direto a Deus, todos são chamados a trazer a relação pessoal com Ele e a orar por todos. Isto é, o sacerdócio de todos os crentes ou ministério geral de todos os cristãos. O ministério da igreja é exercido quando os cristãos respondem à chamada de Deus, obedecem e usam os dons que o Espírito Santo lhes deu. Algumas chamadas são marcadas por atos de ordenação da igreja, quando aqueles cujas vocações foram provadas são confiados à ajuda de Deus. Entre eles está o ministério ordenado para a palavra e os sacramentos. Quer a sua chamada tenha sido ou não reconhecida por ordenação, todos os cristãos partilham do serviço para o qual a igreja é chamada. A igreja tem dias festivos ao longo do ano. Estes são: Natal, dia em que se celebra o nascimento de Jesus Cristo; Domingo de Ramos, dia em que se celebra a entrada triunfal de Jesus em Jerusalém; Sexta-feira Santa, Paixão de Cristo; Páscoa, dia da ressurreição de Jesus Cristo; Ascensão, dia em que Jesus subiu aos céus; Pentecostes, dia da descida do Espírito Santo, formação da igreja em Jerusalém. Estes dias estão indicados no calendário litúrgico e estão centrados na vida terrena de Jesus Cristo, o cabeça da igreja.",
+    references: "1 Pedro 2:9, 1 Coríntios 12:4-11, Efésios 4:11-16",
+    url: null,
+    filename: "Catecismo_Junior_Parte_16_-_A_Igreja.mp3",
+  },
+  {
+    id: "17",
+    tapNumber: 17,
+    partNumber: "17",
+    label: "Parte 17",
+    title: "Igreja Metodista",
+    summary: "John Wesley, o Grupo Santo de Oxford e a herança metodista.",
+    fullText:
+      "Igreja Metodista. Esta lição pretende dar aos catecúmenos noções básicas do metodismo, suas origens e características específicas. O movimento metodista foi fundado por John Wesley. Este era um clérigo da Igreja da Inglaterra (Anglicana), filho de um padre também da mesma igreja, Samuel Wesley, e de Susana Wesley. No dia 24 de Maio de 1738, John Wesley experimentou uma mudança espiritual e um aquecimento especial no seu coração, que o fez sentir-se renovado na sua fé em Jesus Cristo. O movimento metodista surgiu de um grupo de estudantes da Universidade de Oxford, na Inglaterra, que foi chamado de 'Grupo Santo' por outros estudantes, pois se tinham dedicado a Cristo e queriam viver um padrão cristão de vida, orando, lendo a Bíblia, jejuando e ajudando os necessitados. Organizavam a sua vida de maneira metódica, em dias e horas próprias, daí a serem chamados de metodistas. O metodismo é um movimento cristão nascido na Inglaterra, cujos membros se organizavam numa vida regrada, metódica, obedecendo a um padrão de vida cristã de acordo com as Sagradas Escrituras, em plano de trabalho bem estruturado, em dias e horas próprias para cada ação: oração, leitura bíblica, meditação, apoio aos necessitados, estudos, entre outros aspetos. Os metodistas têm resumido a sua mensagem no seguinte: Todos necessitam de ser salvos; Todos podem ser salvos; Todos podem saber que estão salvos. Os metodistas têm forte convicção do conceito da graça preveniente, acreditam na necessidade da salvação de toda a humanidade, bem como na convicção de que todos devem ser salvos e que todos podem saber que estão, somente mediante a fé em Cristo Jesus, nosso Senhor e Salvador. Todo o mundo constitui uma única paróquia, na qual o metodista se prontifica a proclamar as maravilhas do Reino de Deus. Existem algumas características tradicionais do povo chamado metodista, que incluem: A importância de uma vida santificada, dirigida por uma mentalidade que aspira à perfeição e um coração evangelicamente aquecido; A sustentação permanente de que o propósito da conversão cristã não é somente o paraíso, mas sim o testemunho através de uma vida de justiça, amor e misericórdia neste mundo; A ênfase da importância da música na adoração e no ensino das verdades cristãs; A importância de combinar a pregação e o testemunho com a adoração sacramental (Ceia do Senhor e Batismo); A importância de expressar a gratidão a Deus ao prestar serviço à igreja; O desenvolvimento e divisão da comunidade em pequenos grupos (classes) para instrução, cuidado pastoral e intimidade; A importância da conexionalidade, ligando comunidades locais ao distrito, às conferências (distrital, anual, central, jurisdicional e geral) e à comunidade metodista mundial.",
+    references: "Aldersgate 1738, 2 Timóteo 3:16-17",
+    url: null,
+    filename: "Catecismo_Junior_Parte_17_-_Igreja_Metodista.mp3",
+  },
+  {
+    id: "18",
+    tapNumber: 18,
+    partNumber: "18",
+    label: "Parte 18",
+    title: "Igreja Metodista Unida",
+    summary: "História em Moçambique, ministérios, conexionalidade e o símbolo da Cruz e Chama.",
+    fullText:
+      "Igreja Metodista Unida. Nesta lição são dadas ao catecúmeno noções sobre a história da Igreja Metodista Unida em Moçambique, direitos e deveres dos membros, organização da igreja, e símbolo oficial da igreja e seu significado. A Igreja Metodista Unida surgiu da união da Igreja Metodista Episcopal com a Igreja Evangélica dos Irmãos Unidos. Em Moçambique, a Igreja Metodista Unida surgiu assim: Em 1884, o Bispo Missionário para África, William Taylor, que tinha como sua meta desenvolver a Igreja Metodista de sustento próprio, iniciou uma grande digressão evangélica. Partindo da Libéria, veio a Angola em 1885. Em 1890, o Bispo Taylor enviou, a pedido deste, o Reverendo Doutor E. H. Richards, que anteriormente pertencera à Igreja American Board, para trabalhar em Moçambique, no trabalho que ele mesmo iniciara. O Reverendo Richards é quem implantou a Igreja Metodista Episcopal em Moçambique. A Igreja Metodista Episcopal em Moçambique atravessou o seu período de expansão mais frutífero, recrutando membros, construindo escolas, hospitais e confirmando-se como uma das mais dinâmicas e prestigiadas igrejas do país. Isto resultou na ordenação no ministério metodista em Moçambique dos primeiros pastores africanos e nacionais: Tizore Navess e Mutimuna Chicovela, em 1905. Em Setembro de 1964, é consagrado o primeiro bispo moçambicano, o Reverendo Bispo Escrivão Anglaze Zunguze, que se aposentou em 1976. Foi sucedido pelo Reverendo Bispo Almeida Penicela, e este por sua vez foi sucedido pelo Reverendo Bispo João Somane Machado, em 1988. A partir de 2008, a líder da Igreja Metodista Unida em Moçambique é a Reverenda Bispa Joaquina Filipe Nhanala. Pode ser recebido membro efetivo da Igreja Metodista Unida todo aquele que for batizado em qualquer denominação cristã, que aceita os princípios metodistas, prometendo viver uma vida cristã genuína e aceita a orientação do Espírito Santo na sua vida, e promete sustentar a igreja pela sua presença, seus bens, seu esforço e suas orações. Em geral, os deveres do membro da Igreja Metodista são: Participar nos cultos e seus programas; Testemunhar de Cristo em casa, na igreja e no mundo; Estudar as Sagradas Escrituras e praticar a oração; Promover a fraternidade cristã; Exercer uma mordomia responsável dos seus dons e bens em apoio à missão da igreja; Conhecer bem a disciplina da igreja e casar pela igreja. A Igreja Metodista Unida é conexional, estruturando-se em classes, igrejas locais, cargos pastorais, distritos eclesiásticos, conferências anuais, conferências centrais (ou jurisdicionais nos Estados Unidos) e conferência geral. Também organiza grupos de pessoas para tarefas da sua missão segundo as idades, onde encontramos: Crianças (Estrela), Sociedade Metodista Unida de Jovens (SMAJE), Sociedade Metodista Unida de Jovens Adultos (SMAJA), Sociedade Metodista Unida de Mulheres (SMAM), Organização de Homens Metodistas Unidos (OAM). É através destas sociedades e organizações que a igreja atinge os vários elementos da sociedade para os trazer a Jesus Cristo como seus discípulos. O símbolo oficial da Igreja Metodista Unida é uma chama dupla e uma cruz latina vazia. Este símbolo ou logotipo da Igreja Metodista Unida é a marca da igreja, que pode ser utilizada livremente para identificar toda e qualquer igreja local, instituição, publicação, material ou presença da Igreja Metodista. A história deste símbolo é bastante significativa para o povo chamado metodista. Sua criação começou nos Estados Unidos em 1968, quando as duas igrejas, Metodista Episcopal e Evangélica dos Irmãos Unidos, se fundiram, formando a Igreja Metodista Unida. Nesse ano, um concílio da nova igreja, a Metodista Unida, nomeou uma equipa liderada por Edward J. Mikula para criar uma marca oficial para a nova denominação que surgira a partir desta fusão. Este grupo decidiu que: a) Qualquer símbolo que fosse criado deveria carregar alguma expressão de calor como aquela que John Wesley sentiu em seu coração na Rua Aldersgate, aquando da sua experiência religiosa em 24 de Maio de 1738. Por isso é que a equipa liderada por Mikula assumiu o emblema que contém a cruz vazia, lembrando o Cristo ressurreto, e a chama lembrando aquele calor especial no coração de John Wesley aquando da sua experiência. A chama é dupla, representando as duas igrejas que se uniram. Além disso, o simbolismo do emblema nos relaciona com Deus, o Pai, através da segunda e terceira pessoas da Santíssima Trindade: o Cristo (cruz) e o Espírito Santo (chama).",
+    references: "Livro de Disciplina da Igreja Metodista Unida, Conferência Central de África",
+    url: null,
+    filename: "Catecismo_Junior_Parte_18_-_Igreja_Metodista_Unida.mp3",
+  },
+  {
+    id: "19",
+    tapNumber: 19,
+    partNumber: "19",
+    label: "Parte 19",
+    title: "Mordomia Cristã",
+    summary: "Administração fiel da vida, do tempo, dos dons e dos bens para a glória de Deus.",
+    fullText:
+      "Mordomia Cristã. Nesta lição são dadas ao catecúmeno noções sobre a mordomia cristã nas suas várias vertentes. Mordomia cristã é a aceitação ou reconhecimento do privilégio de termos uma conduta coerente em relação aos bens materiais e espirituais que nos foram dados pelo Senhor, de acordo com os ideais cristãos. Mordomo é a pessoa a quem uma outra confia uma parte dos seus bens para que os guarde e os utilize de forma a satisfazer o dono, reservando-lhe uma parte. O mordomo é administrador de todos os bens do seu Senhor. Mordomo cristão é aquele que reconhece que em Cristo vivemos, nos movemos e existimos. Sabe que não pertence a si mesmo, porque foi comprado com o preço do sangue de Cristo derramado na cruz por seus pecados. Reconhece a Deus como seu Senhor e vive para Ele. Toda a vida do cristão (personalidade, tempo, talento, influência, bens materiais, o seu todo enfim) é dedicada a Cristo. Nós, os cristãos, aprendemos que Deus é o Criador de todas as coisas que existem na Terra, e que Ele é o Dono da nossa própria vida. Isso faz com que sejamos mordomos de tudo o que temos e também da nossa vida. Como crentes em Cristo, estamos sob a graça e não sob a lei. Portanto, temos a motivação e o padrão mais elevado e antigo, que é a mordomia dos bens. Pela mordomia dos bens, o cristão é encorajado a tornar-se dizimista, a proceder às ofertas e a ajudar os necessitados (2 Coríntios 8:5), pois nós e as nossas possessões pertencemos ao Senhor (1 Coríntios 6:19-20, 10:31, 2 Coríntios 8:5). O mordomo, ou seja, a pessoa que administra os bens, deve fazê-lo com fidelidade e lealdade, repartindo-os de acordo com as Escrituras Sagradas. A motivação no uso de tudo o que possuímos deve ser para a glória de Deus (1 Coríntios 10:31). Passamos a vida a repetir: 'Não tenho tempo'. Se nos pedem alguma coisa, lá vem a célebre desculpa: 'Se eu pudesse, mas não tenho tempo'. Mais importante do que quantos anos é a maneira como vives esse tempo que Deus te empresta. O que é o tempo? Definição difícil de se dar de forma totalmente compreensível. Eclesiastes 3:1-8 nos diz: 'Tudo tem o seu tempo determinado, e há tempo para todo o propósito debaixo do céu'. Devemos fazer bem tudo o que temos que fazer e que esteja ao nosso alcance. O tempo que agora usamos mal, mesmo que nos arrependamos de o ter feito, jamais o vamos poder recuperar. Devemos gastar o nosso tempo em coisas que nos levam à edificação espiritual. John Wesley esclarece com muita propriedade como o cristão deve gastar o seu tempo, já que prioritariamente procura salvar vidas, daí que diz: 'Gastem o tempo e sejam gastos nessa obra'. Através da nossa presença nos trabalhos da igreja, nossas ofertas e nosso dízimo.",
+    references: "1 Coríntios 6:19-20, 1 Coríntios 10:31, 2 Coríntios 8:5, Eclesiastes 3:1-8",
+    url: null,
+    filename: "Catecismo_Junior_Parte_19_-_Mordomia_Crista.mp3",
+  },
+  {
+    id: "20",
+    tapNumber: 20,
+    partNumber: "20",
+    label: "Parte 20",
+    title: "Perguntas e Respostas de Consolidação",
+    summary: "Questões doutrinárias fundamentais e consolidação do compromisso cristão metodista.",
+    fullText:
+      "Perguntas e Respostas de Consolidação. Pergunta 1: O que é mordomia cristã? Resposta: Mordomia cristã é a aceitação ou reconhecimento do privilégio de termos uma conduta coerente em relação aos bens materiais e espirituais que nos foram dados pelo Senhor, de acordo com os ideais cristãos. Pergunta 2: O que é um mordomo e um mordomo cristão? Resposta: Mordomo é a pessoa a quem uma outra confia uma parte dos seus bens para que os guarde e os utilize de forma a satisfazer o dono, reservando-lhe uma parte do Senhor. O mordomo é administrador de todos os bens do seu Senhor. Mordomo cristão é aquele que reconhece que em Cristo vivemos, nos movemos e existimos. Sabe que não pertence a si mesmo, porque foi comprado com o preço do sangue de Cristo derramado na cruz por seus pecados. Reconhece a Deus como seu Senhor e vive para Ele. Toda a vida do cristão (personalidade, tempo, talento, influência, bens materiais, o seu todo enfim) é dedicada a Cristo. Nós, os cristãos, aprendemos que Deus é o Criador de todas as coisas que existem na Terra, e que Ele é o Dono da nossa própria vida. Isso faz com que sejamos mordomos de tudo o que temos e também da nossa vida. Como crentes em Cristo, estamos sob a graça e não sob a lei. Portanto, temos a motivação e o padrão mais elevado e antigo, que é a mordomia dos bens. Pela mordomia dos bens, o cristão é encorajado a tornar-se dizimista, a proceder às ofertas e a ajudar os necessitados, pois nós e as nossas possessões pertencemos ao Senhor. O mordomo deve fazer tudo com fidelidade e lealdade, repartindo de acordo com as Escrituras Sagradas, para a glória de Deus.",
+    references: "1 Coríntios 10:31, 2 Coríntios 8:5, Mateus 25:14-30",
+    url: null,
+    filename: "Catecismo_Junior_Parte_20_-_Perguntas_E_Respostas_De_Consolidacao.mp3",
   },
 ];
