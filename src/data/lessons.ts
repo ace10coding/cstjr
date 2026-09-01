@@ -12,7 +12,7 @@ export interface LessonTrack {
 }
 
 export const WELCOME_SPEECH_TEXT =
-  'Bem-vindo ao Catecismo Júnior online da Igreja Metodista Unida. Esta é uma iniciativa de acessibilidade e inclusão, especialmente preparada para os nossos irmãos e irmãs em Cristo com deficiência visual. Por favor, não toque em nada de momento para ouvir o Prefácio e o Prefácio à Edição Revista. Pode tocar no ecrã para mudar de lição de acordo com o número de toques e também pode tocar no ecrã 21 vezes para descarregar todos os ficheiros de áudio. Quando descarregar os ficheiros, pode usar a Siri ou o Google Assistant no seu telemóvel e dizer: "Olá Siri, abre o Catecismo Júnior" ou "Olá Google, abre o Catecismo Júnior". O catecismo é composto pela parte 0 do Prefácio, parte 0.1 do Prefácio à Edição Revista, e pelas lições da parte 1 até à parte 20. Se quiser ouvir novamente estas instruções, toque no ecrã 22 vezes. Em nome do Pai, do Filho e do Espírito Santo. Ámen.';
+  'Bem-vindo ao Catecismo Júnior online da Igreja Metodista Unida. Esta é uma iniciativa de acessibilidade e inclusão, especialmente preparada para os nossos irmãos e irmãs em Cristo com deficiência visual. Por favor, não toque em nada de momento para ouvir o Prefácio e o Prefácio à Edição Revista. Pode tocar no ecrã para mudar de lição de acordo com o número de toques e também pode tocar no ecrã 21 vezes para descarregar todos os ficheiros de áudio. Quando descarregar os ficheiros, pode usar a Siri ou o Google Assistant no seu telemóvel para começar a ouvir. Basta pedir para abrir de acordo com o nome do ficheiro. Por exemplo, diga: "Olá Siri, abrir Catecismo Júnior parte 1", ou "Olá Google, abrir Catecismo Júnior parte 20". O catecismo é composto pela parte 0 do Prefácio, parte 0.1 do Prefácio à Edição Revista, e pelas lições da parte 1 até à parte 20. Se quiser ouvir novamente estas instruções, toque no ecrã 22 vezes. Em nome do Pai, do Filho e do Espírito Santo. Ámen.';
 
 export const PREFACES: LessonTrack[] = [
   {
@@ -217,90 +217,92 @@ export const CATECHISM_LESSONS: LessonTrack[] = [
     tapNumber: 14,
     partNumber: "14",
     label: "Parte 14",
-    title: "A Oração do Senhor",
-    summary: "A oração modelo ensinada por Jesus e a comunhão diária com o Pai.",
-    fullText:
-      "A Oração do Senhor. Jesus ensinou os Seus discípulos a orar com sinceridade e reverência. O Pai Nosso reúne a exaltação do Santo Nome de Deus, a busca pela vinda do Seu Reino, a confiança na Sua provisão diária, a súplica por perdão mútuo e a libertação de toda a tentação e mal. Ao orarmos, colocamos toda a nossa existência sob o senhorio amoroso de Deus Pai.",
-    references: "Mateus 6:9-13, Lucas 11:2-4",
-    url: null,
-    filename: "Catecismo_Junior_Parte_14_-_A_Oracao_Do_Senhor.mp3",
-  },
-  {
-    id: "15",
-    tapNumber: 15,
-    partNumber: "15",
-    label: "Parte 15",
-    title: "A Graça de Deus",
-    summary: "Graça Preveniente, Justificadora e Santificadora.",
-    fullText:
-      "A Graça de Deus. Na teologia metodista, a graça é o amor imerecido e gratuito de Deus. A Graça Preveniente cerca-nos antes mesmo de O conhecermos, despertando a consciência. A Graça Justificadora perdoa os nossos pecados quando cremos em Cristo. A Graça Santificadora capacita-nos diariamente a crescer no amor perfeito a Deus e ao próximo ao longo de toda a vida.",
-    references: "Efésios 2:8-9, Romanos 5:1-2, 1 Tessalonicenses 5:23",
-    url: null,
-    filename: "Catecismo_Junior_Parte_15_-_A_Graca_De_Deus.mp3",
-  },
-  {
-    id: "16",
-    tapNumber: 16,
-    partNumber: "16",
-    label: "Parte 16",
     title: "A Igreja",
     summary: "O que é a Igreja, o sacerdócio universal e o calendário litúrgico.",
     fullText:
       "A Igreja. Esta lição visa dar ao catecúmeno informação sobre o que é a igreja, qual é o seu trabalho, e quem executa o trabalho da igreja. Dá também uma breve noção do calendário litúrgico. Como todos os membros da igreja partilham do privilégio e da responsabilidade do acesso direto a Deus, todos são chamados a trazer a relação pessoal com Ele e a orar por todos. Isto é, o sacerdócio de todos os crentes ou ministério geral de todos os cristãos. O ministério da igreja é exercido quando os cristãos respondem à chamada de Deus, obedecem e usam os dons que o Espírito Santo lhes deu. Algumas chamadas são marcadas por atos de ordenação da igreja, quando aqueles cujas vocações foram provadas são confiados à ajuda de Deus. Entre eles está o ministério ordenado para a palavra e os sacramentos. Quer a sua chamada tenha sido ou não reconhecida por ordenação, todos os cristãos partilham do serviço para o qual a igreja é chamada. A igreja tem dias festivos ao longo do ano. Estes são: Natal, dia em que se celebra o nascimento de Jesus Cristo; Domingo de Ramos, dia em que se celebra a entrada triunfal de Jesus em Jerusalém; Sexta-feira Santa, Paixão de Cristo; Páscoa, dia da ressurreição de Jesus Cristo; Ascensão, dia em que Jesus subiu aos céus; Pentecostes, dia da descida do Espírito Santo, formação da igreja em Jerusalém. Estes dias estão indicados no calendário litúrgico e estão centrados na vida terrena de Jesus Cristo, o cabeça da igreja.",
     references: "1 Pedro 2:9, 1 Coríntios 12:4-11, Efésios 4:11-16",
     url: null,
-    filename: "Catecismo_Junior_Parte_16_-_A_Igreja.mp3",
+    filename: "Catecismo_Junior_Parte_14_-_A_Igreja.mp3",
   },
   {
-    id: "17",
-    tapNumber: 17,
-    partNumber: "17",
-    label: "Parte 17",
+    id: "15",
+    tapNumber: 15,
+    partNumber: "15",
+    label: "Parte 15",
     title: "Igreja Metodista",
     summary: "John Wesley, o Grupo Santo de Oxford e a herança metodista.",
     fullText:
       "Igreja Metodista. Esta lição pretende dar aos catecúmenos noções básicas do metodismo, suas origens e características específicas. O movimento metodista foi fundado por John Wesley. Este era um clérigo da Igreja da Inglaterra (Anglicana), filho de um padre também da mesma igreja, Samuel Wesley, e de Susana Wesley. No dia 24 de Maio de 1738, John Wesley experimentou uma mudança espiritual e um aquecimento especial no seu coração, que o fez sentir-se renovado na sua fé em Jesus Cristo. O movimento metodista surgiu de um grupo de estudantes da Universidade de Oxford, na Inglaterra, que foi chamado de 'Grupo Santo' por outros estudantes, pois se tinham dedicado a Cristo e queriam viver um padrão cristão de vida, orando, lendo a Bíblia, jejuando e ajudando os necessitados. Organizavam a sua vida de maneira metódica, em dias e horas próprias, daí a serem chamados de metodistas. O metodismo é um movimento cristão nascido na Inglaterra, cujos membros se organizavam numa vida regrada, metódica, obedecendo a um padrão de vida cristã de acordo com as Sagradas Escrituras, em plano de trabalho bem estruturado, em dias e horas próprias para cada ação: oração, leitura bíblica, meditação, apoio aos necessitados, estudos, entre outros aspetos. Os metodistas têm resumido a sua mensagem no seguinte: Todos necessitam de ser salvos; Todos podem ser salvos; Todos podem saber que estão salvos. Os metodistas têm forte convicção do conceito da graça preveniente, acreditam na necessidade da salvação de toda a humanidade, bem como na convicção de que todos devem ser salvos e que todos podem saber que estão, somente mediante a fé em Cristo Jesus, nosso Senhor e Salvador. Todo o mundo constitui uma única paróquia, na qual o metodista se prontifica a proclamar as maravilhas do Reino de Deus. Existem algumas características tradicionais do povo chamado metodista, que incluem: A importância de uma vida santificada, dirigida por uma mentalidade que aspira à perfeição e um coração evangelicamente aquecido; A sustentação permanente de que o propósito da conversão cristã não é somente o paraíso, mas sim o testemunho através de uma vida de justiça, amor e misericórdia neste mundo; A ênfase da importância da música na adoração e no ensino das verdades cristãs; A importância de combinar a pregação e o testemunho com a adoração sacramental (Ceia do Senhor e Batismo); A importância de expressar a gratidão a Deus ao prestar serviço à igreja; O desenvolvimento e divisão da comunidade em pequenos grupos (classes) para instrução, cuidado pastoral e intimidade; A importância da conexionalidade, ligando comunidades locais ao distrito, às conferências (distrital, anual, central, jurisdicional e geral) e à comunidade metodista mundial.",
     references: "Aldersgate 1738, 2 Timóteo 3:16-17",
     url: null,
-    filename: "Catecismo_Junior_Parte_17_-_Igreja_Metodista.mp3",
+    filename: "Catecismo_Junior_Parte_15_-_Igreja_Metodista.mp3",
   },
   {
-    id: "18",
-    tapNumber: 18,
-    partNumber: "18",
-    label: "Parte 18",
+    id: "16",
+    tapNumber: 16,
+    partNumber: "16",
+    label: "Parte 16",
     title: "Igreja Metodista Unida",
     summary: "História em Moçambique, ministérios, conexionalidade e o símbolo da Cruz e Chama.",
     fullText:
       "Igreja Metodista Unida. Nesta lição são dadas ao catecúmeno noções sobre a história da Igreja Metodista Unida em Moçambique, direitos e deveres dos membros, organização da igreja, e símbolo oficial da igreja e seu significado. A Igreja Metodista Unida surgiu da união da Igreja Metodista Episcopal com a Igreja Evangélica dos Irmãos Unidos. Em Moçambique, a Igreja Metodista Unida surgiu assim: Em 1884, o Bispo Missionário para África, William Taylor, que tinha como sua meta desenvolver a Igreja Metodista de sustento próprio, iniciou uma grande digressão evangélica. Partindo da Libéria, veio a Angola em 1885. Em 1890, o Bispo Taylor enviou, a pedido deste, o Reverendo Doutor E. H. Richards, que anteriormente pertencera à Igreja American Board, para trabalhar em Moçambique, no trabalho que ele mesmo iniciara. O Reverendo Richards é quem implantou a Igreja Metodista Episcopal em Moçambique. A Igreja Metodista Episcopal em Moçambique atravessou o seu período de expansão mais frutífero, recrutando membros, construindo escolas, hospitais e confirmando-se como uma das mais dinâmicas e prestigiadas igrejas do país. Isto resultou na ordenação no ministério metodista em Moçambique dos primeiros pastores africanos e nacionais: Tizore Navess e Mutimuna Chicovela, em 1905. Em Setembro de 1964, é consagrado o primeiro bispo moçambicano, o Reverendo Bispo Escrivão Anglaze Zunguze, que se aposentou em 1976. Foi sucedido pelo Reverendo Bispo Almeida Penicela, e este por sua vez foi sucedido pelo Reverendo Bispo João Somane Machado, em 1988. A partir de 2008, a líder da Igreja Metodista Unida em Moçambique é a Reverenda Bispa Joaquina Filipe Nhanala. Pode ser recebido membro efetivo da Igreja Metodista Unida todo aquele que for batizado em qualquer denominação cristã, que aceita os princípios metodistas, prometendo viver uma vida cristã genuína e aceita a orientação do Espírito Santo na sua vida, e promete sustentar a igreja pela sua presença, seus bens, seu esforço e suas orações. Em geral, os deveres do membro da Igreja Metodista são: Participar nos cultos e seus programas; Testemunhar de Cristo em casa, na igreja e no mundo; Estudar as Sagradas Escrituras e praticar a oração; Promover a fraternidade cristã; Exercer uma mordomia responsável dos seus dons e bens em apoio à missão da igreja; Conhecer bem a disciplina da igreja e casar pela igreja. A Igreja Metodista Unida é conexional, estruturando-se em classes, igrejas locais, cargos pastorais, distritos eclesiásticos, conferências anuais, conferências centrais (ou jurisdicionais nos Estados Unidos) e conferência geral. Também organiza grupos de pessoas para tarefas da sua missão segundo as idades, onde encontramos: Crianças (Estrela), Sociedade Metodista Unida de Jovens (SMAJE), Sociedade Metodista Unida de Jovens Adultos (SMAJA), Sociedade Metodista Unida de Mulheres (SMAM), Organização de Homens Metodistas Unidos (OAM). É através destas sociedades e organizações que a igreja atinge os vários elementos da sociedade para os trazer a Jesus Cristo como seus discípulos. O símbolo oficial da Igreja Metodista Unida é uma chama dupla e uma cruz latina vazia. Este símbolo ou logotipo da Igreja Metodista Unida é a marca da igreja, que pode ser utilizada livremente para identificar toda e qualquer igreja local, instituição, publicação, material ou presença da Igreja Metodista. A história deste símbolo é bastante significativa para o povo chamado metodista. Sua criação começou nos Estados Unidos em 1968, quando as duas igrejas, Metodista Episcopal e Evangélica dos Irmãos Unidos, se fundiram, formando a Igreja Metodista Unida. Nesse ano, um concílio da nova igreja, a Metodista Unida, nomeou uma equipa liderada por Edward J. Mikula para criar uma marca oficial para a nova denominação que surgira a partir desta fusão. Este grupo decidiu que: a) Qualquer símbolo que fosse criado deveria carregar alguma expressão de calor como aquela que John Wesley sentiu em seu coração na Rua Aldersgate, aquando da sua experiência religiosa em 24 de Maio de 1738. Por isso é que a equipa liderada por Mikula assumiu o emblema que contém a cruz vazia, lembrando o Cristo ressurreto, e a chama lembrando aquele calor especial no coração de John Wesley aquando da sua experiência. A chama é dupla, representando as duas igrejas que se uniram. Além disso, o simbolismo do emblema nos relaciona com Deus, o Pai, através da segunda e terceira pessoas da Santíssima Trindade: o Cristo (cruz) e o Espírito Santo (chama).",
     references: "Livro de Disciplina da Igreja Metodista Unida, Conferência Central de África",
     url: null,
-    filename: "Catecismo_Junior_Parte_18_-_Igreja_Metodista_Unida.mp3",
+    filename: "Catecismo_Junior_Parte_16_-_Igreja_Metodista_Unida.mp3",
   },
   {
-    id: "19",
-    tapNumber: 19,
-    partNumber: "19",
-    label: "Parte 19",
+    id: "17",
+    tapNumber: 17,
+    partNumber: "17",
+    label: "Parte 17",
     title: "Mordomia Cristã",
     summary: "Administração fiel da vida, do tempo, dos dons e dos bens para a glória de Deus.",
     fullText:
       "Mordomia Cristã. Nesta lição são dadas ao catecúmeno noções sobre a mordomia cristã nas suas várias vertentes. Mordomia cristã é a aceitação ou reconhecimento do privilégio de termos uma conduta coerente em relação aos bens materiais e espirituais que nos foram dados pelo Senhor, de acordo com os ideais cristãos. Mordomo é a pessoa a quem uma outra confia uma parte dos seus bens para que os guarde e os utilize de forma a satisfazer o dono, reservando-lhe uma parte. O mordomo é administrador de todos os bens do seu Senhor. Mordomo cristão é aquele que reconhece que em Cristo vivemos, nos movemos e existimos. Sabe que não pertence a si mesmo, porque foi comprado com o preço do sangue de Cristo derramado na cruz por seus pecados. Reconhece a Deus como seu Senhor e vive para Ele. Toda a vida do cristão (personalidade, tempo, talento, influência, bens materiais, o seu todo enfim) é dedicada a Cristo. Nós, os cristãos, aprendemos que Deus é o Criador de todas as coisas que existem na Terra, e que Ele é o Dono da nossa própria vida. Isso faz com que sejamos mordomos de tudo o que temos e também da nossa vida. Como crentes em Cristo, estamos sob a graça e não sob a lei. Portanto, temos a motivação e o padrão mais elevado e antigo, que é a mordomia dos bens. Pela mordomia dos bens, o cristão é encorajado a tornar-se dizimista, a proceder às ofertas e a ajudar os necessitados (2 Coríntios 8:5), pois nós e as nossas possessões pertencemos ao Senhor (1 Coríntios 6:19-20, 10:31, 2 Coríntios 8:5). O mordomo, ou seja, a pessoa que administra os bens, deve fazê-lo com fidelidade e lealdade, repartindo-os de acordo com as Escrituras Sagradas. A motivação no uso de tudo o que possuímos deve ser para a glória de Deus (1 Coríntios 10:31). Passamos a vida a repetir: 'Não tenho tempo'. Se nos pedem alguma coisa, lá vem a célebre desculpa: 'Se eu pudesse, mas não tenho tempo'. Mais importante do que quantos anos é a maneira como vives esse tempo que Deus te empresta. O que é o tempo? Definição difícil de se dar de forma totalmente compreensível. Eclesiastes 3:1-8 nos diz: 'Tudo tem o seu tempo determinado, e há tempo para todo o propósito debaixo do céu'. Devemos fazer bem tudo o que temos que fazer e que esteja ao nosso alcance. O tempo que agora usamos mal, mesmo que nos arrependamos de o ter feito, jamais o vamos poder recuperar. Devemos gastar o nosso tempo em coisas que nos levam à edificação espiritual. John Wesley esclarece com muita propriedade como o cristão deve gastar o seu tempo, já que prioritariamente procura salvar vidas, daí que diz: 'Gastem o tempo e sejam gastos nessa obra'. Através da nossa presença nos trabalhos da igreja, nossas ofertas e nosso dízimo.",
     references: "1 Coríntios 6:19-20, 1 Coríntios 10:31, 2 Coríntios 8:5, Eclesiastes 3:1-8",
     url: null,
-    filename: "Catecismo_Junior_Parte_19_-_Mordomia_Crista.mp3",
+    filename: "Catecismo_Junior_Parte_17_-_Mordomia_Crista.mp3",
+  },
+  {
+    id: "18",
+    tapNumber: 18,
+    partNumber: "18",
+    label: "Parte 18",
+    title: "O Dízimo",
+    summary:
+      "Fundamentos bíblicos, dez mandamentos do dízimo e dimensões religiosa, social e missionária.",
+    fullText:
+      "O Dízimo. Nesta lição ensina-se ao catecúmeno o significado e a importância do dízimo na relação com Deus, assim como as várias dimensões do mesmo. 1. O que diz a Bíblia sobre o dízimo: A palavra dízimo é encontrada pela primeira vez em Génesis 14:18-20, onde Abraão oferece a Deus um décimo de todos os seus bens, em agradecimento pela assistência de Deus nas lutas contra os inimigos. O dízimo deve brotar da gratidão, do reconhecimento de que Deus é o Senhor de tudo. Se tenho, é porque Ele me deu. Em Hebreus 7:4 está escrito: 'Considerai, pois, quão grande é aquele a quem até o patriarca Abraão deu o dízimo dos seus mais ricos espólios'. Abraão, nosso pai na fé, entregou o dízimo. Quem de nós se pode auto-isentar? 2. O que é o dízimo: Deuteronómio 14:22-26: 'Pôr-as-às à parte o dízimo de todo o fruto de tuas sementeiras, de tudo o que teu campo produzir cada ano'. É o dízimo destinado à peregrinação, à Casa do Senhor. Deus exige o dízimo e os primogénitos (Deuteronómio 12:11-14, 14:28). O dízimo deve ser levado à comunidade onde vivo, de que participo e onde celebro a fé. Não posso administrar o dízimo para mim mesmo: que a mão esquerda não saiba o que deu a direita (Mateus 6:3). Fazer uma cesta de alimentos e dar aos pobres é caridade, e não dízimo. O dízimo estabelece um princípio de fidelidade entre a criatura e seu Criador (Deuteronómio 26:12-13, Génesis 28:20-22, Levítico 27:30-32). Malaquias 3:8-9: aqui está o verdadeiro sentido do dízimo. Deus pede o dízimo para que não falte nada na casa de ninguém. Oração da oferta: 'Recebe, Senhor, minha oferta. Não é uma esmola, porque não és mendigo; não é uma contribuição, porque não precisas; não é o resto que me sobra que Te ofereço. Esta importância representa, Senhor, meu reconhecimento, meu amor, pois, se tenho, é porque me deste. Ámen.' 3. Meus 10 Mandamentos do Dízimo: Primeiro: Sou dizimista porque amo a Deus e amo o meu próximo (2 Coríntios 9:7). Segundo: Sou dizimista porque reconheço que tudo recebo de Deus (Salmo 23). Terceiro: Sou dizimista porque minha gratidão a Deus me leva a devolver um pouco do muito que recebo (Lucas 17:11-19). Quarto: Sou dizimista porque aceito como palavra de Deus o que leio na Bíblia; sei que o dízimo é fonte de bênção (Malaquias 3:10, Lucas 21:1-4). Quinto: Sou dizimista porque creio e confio em Deus Pai (Mateus 6:25-31). Sexto: Sou dizimista porque o ato de partilhar irá matando o meu egoísmo (Lucas 12:16-21, 1 Pedro 4:8). Sétimo: Sou dizimista porque creio na vida cristã em comunidade (Mateus 18:20). Oitavo: Sou dizimista porque Deus, o único Pai rico, não quer ninguém passando necessidades (Mateus 25:40). Nono: Sou dizimista porque gosto de viver em liberdade e alegria (João 14:1-5, Mateus 25:34). Décimo: Sou dizimista porque quero ver minha comunidade crescer e minha igreja testemunhar o evangelho de Jesus no mundo (Mateus 28:19-20). 4. As três dimensões do dízimo: 4.1 Dimensão religiosa do dízimo: O dízimo deve ser uma opção que liberta e ajuda no processo de salvação para com Deus. 4.2 Dimensão social do dízimo: O dízimo acolhe o pobre, a viúva, o indigente, o peregrino e o estrangeiro. À medida que acolhemos o necessitado, acolhemos o próprio Cristo (Mateus 25:42-45). 4.3 Dimensão missionária do dízimo: O dízimo capacita a comunidade a preparar e enviar pregadores, catequistas e missionários para evangelizarem em todos os lugares.",
+    references: "Génesis 14:18-20, Malaquias 3:8-10, Mateus 6:25-34, 2 Coríntios 8:1-3, 9:7",
+    url: null,
+    filename: "Catecismo_Junior_Parte_18_-_O_Dizimo.mp3",
+  },
+  {
+    id: "19",
+    tapNumber: 19,
+    partNumber: "19",
+    label: "Parte 19",
+    title: "A Bíblia",
+    summary:
+      "A Palavra inspirada por Deus, tradução de João Ferreira de Almeida e estrutura canónica.",
+    fullText:
+      "A Bíblia. Esta lição pretende dar a conhecer ao catecúmeno uma informação geral sobre a Bíblia Sagrada, sua autoria, sua tradução e sua composição. A Bíblia é a coleção de livros gradualmente compilados, na qual está relatado como Deus agiu no meio e através do seu povo e lhe falou. Os escritos expressaram-se de acordo com a sua linguagem, cultura e situação histórica, e por variadas formas todos davam testemunho da sua fé em Deus. A Bíblia documenta a auto-revelação de Deus, de forma suprema em Jesus Cristo, e é um meio através do qual Ele continua a revelar-se a Si próprio, pelo Espírito Santo. Bíblia Sagrada é a revelação de Deus à humanidade. É a definição canónica mais curta da Bíblia. Tudo o que Deus tem preparado para o homem, bem como o que Ele requer do homem, e tudo o que o homem precisa saber espiritualmente da parte d'Ele quanto à sua redenção e felicidade eterna, está revelado na Bíblia. Tudo o que o homem tem a fazer é tomar a palavra de Deus e apropriar-se dela pela fé. O autor da Bíblia é Deus, seu real intérprete é o Espírito Santo e seu assunto central é o Senhor Jesus Cristo. O homem deve ler a Bíblia para ser sábio, crer na Bíblia para ser salvo e praticar a Bíblia para ser santo ou santificado. A coleção completa dos livros divinamente inspirados constituindo a Bíblia é chamada de Cânon. A Bíblia Sagrada é considerada por muitos como um livro de leitura difícil. Difícil porque é antigo, foi escrito por orientais, que têm uma mentalidade bem diferente da greco-romana, da qual nós descendemos. Diversos foram os seus escritores, que viveram entre os anos 1200 antes de Cristo a 100 depois de Cristo. Isso, sem levar em conta que foi escrita em línguas hoje inexistentes ou totalmente modificadas, como o hebraico, o grego e o aramaico, facto este que dificulta enormemente uma tradução, pois muitas vezes não se encontram palavras adequadas, mas vale a pena fazer um esforço e lê-la. Sobre a tradução feita por João Ferreira Annes d'Almeida: João Ferreira de Almeida nasceu em 1628, próximo a Lisboa. Convertido ao protestantismo, iniciou a tradução da Bíblia aos 17 anos, mas perdeu o seu primeiro manuscrito e reiniciou o seu trabalho em 1648. Conhecia hebraico e grego e utilizou-se de vários manuscritos dessas línguas para compor a sua tradução. Em 1676, foi concluída a tradução do Novo Testamento, que só viria a ser publicada em 1681, na Holanda, por problemas de revisão. Quando ocorreu a sua morte em 1691, já havia traduzido o Velho Testamento até ao livro do profeta Ezequiel. Seu trabalho foi continuado pelo pastor Jacobus op den Akker, de Batávia, em 1748. Cinco anos depois, em 1753, foi impressa a primeira Bíblia em português, completa, em dois volumes. Estrutura da Bíblia: A Bíblia divide-se em duas partes, a saber: Antigo Testamento, com 39 livros; Novo Testamento, com 27 livros. A primeira tradução da Bíblia Sagrada para o Xitswa foi feita por Mutimunene Chicovela, que a traduziu do inglês no final do século dezanove. Antigo Testamento: O Antigo Testamento conta a história do povo de Israel. Essa história retrata a fé do povo e descreve a vida religiosa dos israelitas. Os autores destes livros escreveram o que Deus fez por eles como povo e como eles deveriam adorá-Lo em resposta ao Seu amor. Os livros do Antigo Testamento formam cinco grupos que abrangem conteúdos semelhantes e seguem a mesma ordem cronológica em que se acham na Bíblia. Novo Testamento: Os livros do Novo Testamento foram escritos pelos discípulos de Jesus Cristo. Eles queriam que outros ouvissem a respeito da nova vida que é possível através da morte e ressurreição de Jesus. Da mesma forma que o Antigo Testamento, o Novo Testamento também está dividido em grupos de conteúdo semelhante, quer pelos assuntos tratados, quer pelos autores ou pelos objetivos.",
+    references: "2 Timóteo 3:16-17, Salmo 119:105, Hebreus 4:12",
+    url: null,
+    filename: "Catecismo_Junior_Parte_19_-_A_Biblia.mp3",
   },
   {
     id: "20",
     tapNumber: 20,
     partNumber: "20",
     label: "Parte 20",
-    title: "Perguntas e Respostas de Consolidação",
-    summary: "Questões doutrinárias fundamentais e consolidação do compromisso cristão metodista.",
+    title: "Compromisso dos Membros Efetivos",
+    summary: "A confirmação dos votos do pacto batismal e a recepção em plena comunhão.",
     fullText:
-      "Perguntas e Respostas de Consolidação. Pergunta 1: O que é mordomia cristã? Resposta: Mordomia cristã é a aceitação ou reconhecimento do privilégio de termos uma conduta coerente em relação aos bens materiais e espirituais que nos foram dados pelo Senhor, de acordo com os ideais cristãos. Pergunta 2: O que é um mordomo e um mordomo cristão? Resposta: Mordomo é a pessoa a quem uma outra confia uma parte dos seus bens para que os guarde e os utilize de forma a satisfazer o dono, reservando-lhe uma parte do Senhor. O mordomo é administrador de todos os bens do seu Senhor. Mordomo cristão é aquele que reconhece que em Cristo vivemos, nos movemos e existimos. Sabe que não pertence a si mesmo, porque foi comprado com o preço do sangue de Cristo derramado na cruz por seus pecados. Reconhece a Deus como seu Senhor e vive para Ele. Toda a vida do cristão (personalidade, tempo, talento, influência, bens materiais, o seu todo enfim) é dedicada a Cristo. Nós, os cristãos, aprendemos que Deus é o Criador de todas as coisas que existem na Terra, e que Ele é o Dono da nossa própria vida. Isso faz com que sejamos mordomos de tudo o que temos e também da nossa vida. Como crentes em Cristo, estamos sob a graça e não sob a lei. Portanto, temos a motivação e o padrão mais elevado e antigo, que é a mordomia dos bens. Pela mordomia dos bens, o cristão é encorajado a tornar-se dizimista, a proceder às ofertas e a ajudar os necessitados, pois nós e as nossas possessões pertencemos ao Senhor. O mordomo deve fazer tudo com fidelidade e lealdade, repartindo de acordo com as Escrituras Sagradas, para a glória de Deus.",
-    references: "1 Coríntios 10:31, 2 Coríntios 8:5, Mateus 25:14-30",
+      "Compromisso dos membros efetivos. Oficiante: Confirmais na presença de Deus e desta congregação os votos contidos no pacto batismal? Resposta: Sim, confirmo. Oficiante: Confessais aceitar a Jesus Cristo como Senhor e vosso Salvador pessoal? Resposta: Sim, confesso. Oficiante: Buscareis sempre a comunhão de seu povo para auxiliar o vosso crescimento em graça e santidade diante de Deus e dos homens? Resposta: Sim, com a graça de Deus.",
+    references: "Livro de Disciplina da Igreja Metodista Unida",
     url: null,
-    filename: "Catecismo_Junior_Parte_20_-_Perguntas_E_Respostas_De_Consolidacao.mp3",
+    filename: "Catecismo_Junior_Parte_20_-_Compromisso_Dos_Membros_Efetivos.mp3",
   },
 ];
