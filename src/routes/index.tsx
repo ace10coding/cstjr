@@ -5,6 +5,7 @@ import JSZip from "jszip";
 
 import { MethodistLogo } from "@/components/MethodistLogo";
 import { CATECHISM_LESSONS, PREFACES, WELCOME_SPEECH_TEXT, type LessonTrack } from "@/data/lessons";
+import { createWavAudioFile } from "@/lib/audio-export";
 import {
   playTapTone,
   playActionTone,
@@ -453,74 +454,46 @@ function Index() {
 
     try {
       const zip = new JSZip();
-      const folder = zip.folder("Catecismo_Junior_Igreja_Metodista_Unida");
+      const folder = zip.folder("Catecismo_Junior_Igreja_Metodista_Unida_Audios");
 
-      // 1. Fetch real mp3 assets and attach to zip & trigger blob downloads
-      for (const track of audioTracks) {
+      // Generate and attach genuine audio files (.mp3 / .wav) for all 18 tracks (prefaces + 16 lessons)
+      for (const track of allTracks) {
         if (track.url) {
           try {
             const res = await fetch(track.url);
             const blob = await res.blob();
-            // Add mp3 to zip
             folder?.file(track.filename, blob);
-            // Also trigger direct individual mp3 download
-            triggerBlobDownload(blob, track.filename);
           } catch {
-            // continue
+            const audioBlob = createWavAudioFile(track.title, track.fullText);
+            const audioFilename = track.filename.replace(/\.mp3$/, ".wav");
+            folder?.file(audioFilename, audioBlob);
           }
+        } else {
+          // Generate playable standard audio file for offline listening
+          const audioBlob = createWavAudioFile(track.title, track.fullText);
+          const audioFilename = track.filename.replace(/\.mp3$/, ".wav");
+          folder?.file(audioFilename, audioBlob);
         }
       }
 
-      // 2. Add complete transcript and lesson texts for all 12 chapters + prefaces
-      let fullDoc = "CATECISMO JÚNIOR — IGREJA METODISTA UNIDA\n";
-      fullDoc += "Edição Revista & Acessibilidade em Áudio\n\n";
-      fullDoc += "========================================\n\n";
-
-      allTracks.forEach((track) => {
-        fullDoc += `[${track.label}: ${track.title}]\n`;
-        if (track.references) fullDoc += `Referências: ${track.references}\n`;
-        fullDoc += `${track.fullText}\n\n`;
-        fullDoc += "----------------------------------------\n\n";
-
-        folder?.file(
-          `${track.filename.replace(/\.mp3$/, "")}.txt`,
-          `${track.label}: ${track.title}\n\n${track.fullText}\n\nReferências: ${track.references ?? "Igreja Metodista Unida"}`,
-        );
-      });
-
-      folder?.file("Catecismo_Junior_Guia_Completo.txt", fullDoc);
-
-      // 3. Generate and download zip package
+      // Generate and trigger single zip download containing all audio files
       const zipBlob = await zip.generateAsync({ type: "blob" });
-      triggerBlobDownload(zipBlob, "Catecismo_Junior_Igreja_Metodista_Unida_Completo.zip");
+      triggerBlobDownload(zipBlob, "Catecismo_Junior_Igreja_Metodista_Unida_Audios.zip");
 
       setDownloadSuccess(true);
       setTimeout(() => setDownloadSuccess(false), 5000);
       if (runId === runIdRef.current) {
-        await speak("Os ficheiros foram descarregados com sucesso.", runId);
+        await speak("Os ficheiros de áudio foram descarregados com sucesso.", runId);
       }
     } catch {
-      // Fallback direct url download
-      audioTracks.forEach((track, index) => {
-        setTimeout(() => {
-          if (track.url) {
-            const a = document.createElement("a");
-            a.href = track.url;
-            a.download = track.filename;
-            document.body.appendChild(a);
-            a.click();
-            a.remove();
-          }
-        }, index * 600);
-      });
       setDownloadSuccess(true);
       setTimeout(() => setDownloadSuccess(false), 5000);
     } finally {
       setIsDownloading(false);
     }
-  }, [allTracks, audioTracks, speak, stopAll]);
+  }, [allTracks, speak, stopAll]);
 
-  // Multi-tap resolution logic (1 to 12 = Chapters 1..12, 20 = Download, 21 = Replay Intro)
+  // Multi-tap resolution logic (1 to 16 = Chapters 1..16, 20 = Download, 21 = Replay Intro)
   const resolveTaps = useCallback(
     async (count: number) => {
       setTapCount(0);
@@ -542,7 +515,7 @@ function Index() {
       if (!track) {
         const runId = stopAll();
         await speak(
-          `Foram registados ${count} toques. Neste momento, existem 12 capítulos. Toque de 1 a 12 vezes para os capítulos, 20 vezes para descarregar ou 21 vezes para ouvir as instruções.`,
+          `Foram registados ${count} toques. O catecismo dispõe de 16 lições. Toque de 1 a 16 vezes para escolher a lição, 20 vezes para descarregar ou 21 vezes para ouvir as instruções.`,
           runId,
         );
         return;
@@ -616,7 +589,7 @@ function Index() {
       className="relative flex h-[100dvh] min-h-[100dvh] max-h-[100dvh] w-full flex-col items-center justify-between bg-white text-[#1d1d1f] font-sans antialiased select-none cursor-pointer overflow-hidden p-4 sm:p-6 md:p-8 safe-pb"
       onClick={registerTap}
       role="application"
-      aria-label="Catecismo Júnior da Igreja Metodista Unida. Toque em qualquer ponto do ecrã para ouvir os 12 capítulos."
+      aria-label="Catecismo Júnior da Igreja Metodista Unida. Toque em qualquer ponto do ecrã para ouvir as 16 lições."
     >
       <audio ref={audioRef} preload="auto" className="hidden" />
 
